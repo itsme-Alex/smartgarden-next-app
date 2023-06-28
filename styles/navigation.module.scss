@@ -1,0 +1,21 @@
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: transparent;
+}
+
+.navLeft {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.navRight a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: inherit;
+}

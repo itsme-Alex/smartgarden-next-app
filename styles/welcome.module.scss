@@ -1,0 +1,46 @@
+// welcome.module.scss
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  
+    .topContent {
+      margin-bottom: 10px;
+      text-align: center;
+  
+      h1 {
+        margin-bottom: 20px;
+      }
+    }
+  
+    .middleContent {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 80%;
+      //gap: 0px;
+  
+      .greenade {
+        width: 70%;
+        height: auto;
+      }
+  
+      .textContent {
+        max-width: 30%;
+  
+        p {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  
+    h2 {
+      //margin-top: 50px;
+      text-align: center;
+    }
+  }
+  
+  
+  
