@@ -1,5 +1,20 @@
 export default function About() {
     return (
-        <p>À Propos</p>
+        <div>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        <p>À Propos </p>
+        </div>
     )
 }
