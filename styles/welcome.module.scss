@@ -31,7 +31,7 @@
         top: 7%;
         left: 17%; 
         width: 70%;
-        max-width: 800px;
+        max-width: 880px;
         height: auto;
         z-index: 1; 
     }
@@ -41,10 +41,10 @@
         top: 8%; 
         left: 18%; 
         width: 71%;
+        max-width: 880px;
         height: auto;
         z-index: 0;
     }
-    
 
     .textContent {
         position: absolute;
@@ -75,20 +75,28 @@
         .topContent {
 
             h1 {
+                position: absolute;
                 margin-top: 10px;
                 margin-left: 100px; 
                 font-size: 70px;
+                left: 0px;
             }
   
             p {
-                margin-left: 500px;
-                margin-bottom: 10px; 
+                margin-left: 300px;
+                margin-bottom: 250px; 
                 font-size: 20px;
             }
         }
 
         .greenade {
             width: 80%;
+            margin-top: 60px;
+        }
+
+        .shadowGreenade {
+            width: 80%;
+            margin-top: 60px;
         }
 
         .textContent {
@@ -97,14 +105,44 @@
         }
 
         h2 {
-            /* Styles pour tablettes ici */
+            // position: absolute;
+            font-size: 120px;
+            //margin-top: 50px;
         }
     }
 
-    @media (max-width: 768px) { /* Mobile */
+    @media (max-width: 768px) { /* Little Tablet */
         .topContent {
             h1 {
-            
+                
+            }
+  
+            p {
+                /* Styles pour mobile ici */
+            }
+        }
+
+        .greenade {
+            margin-left:70px;
+        }
+
+        .shadowGreenade {
+            margin-left:70px;
+        }
+
+        .textContent {
+            /* Styles pour mobile ici */
+        }
+
+        h2 {
+            /* Styles pour mobile ici */
+        }
+    }
+
+    @media (max-width: 480px) { /* Mobile */
+        .topContent {
+            h1 {
+                font-size: 1px;
             }
   
             p {
@@ -125,6 +163,7 @@
         }
     }
 }
+
 
 
 
