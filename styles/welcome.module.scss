@@ -16,13 +16,18 @@
             margin-right: 850px; 
             margin-bottom: 10px;
             max-width: 100px;
-            font-size: 80px;
+            font-size: 6vw;
+            line-height: 1;
         }
 
         p {
             margin-left: 650px;
             margin-bottom: 80px; 
-            font-size: 25px;
+            font-size: 2vw;
+            font-family: 'Poppins-Regular';
+            max-width: 350px;
+            //padding: 15px;
+            //border-right: 1px solid white;
         }
     }
 
@@ -53,13 +58,31 @@
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        font-size: 20px;
+        font-size: 25px;
         z-index: 2; 
 
         p {
             margin-bottom: 10px;
             max-width: 300px;
             margin-bottom: 50px;
+            font-family: 'Poppins-Thin';
+        }
+
+        .textLink {
+            //color: black;
+            border: 1px solid white;
+            padding-bottom: 40px;
+            border-radius: 40px;
+            padding: 15px;
+            font-size: 15px;
+            font-family: 'Poppins-Regular';
+            //text-decoration: underline white;
+
+            &:hover {
+                color: rgb(0, 0, 0);
+                border: 1px solid black;
+                //text-decoration: underline black;
+              }
         }
     }
 
@@ -67,9 +90,11 @@
         position: relative;
         margin-top: 140px;
         text-align: center;
-        font-size: 200px;
+        font-size: 15vw;
         z-index: 0;
-    }
+        transform: translateY(-80px);
+      }
+      
 
     @media (max-width: 1024px) { /* Tablet */
         .topContent {
@@ -86,56 +111,62 @@
                 margin-left: 300px;
                 margin-bottom: 250px; 
                 font-size: 20px;
+                border: none;
             }
         }
 
         .greenade {
             width: 80%;
-            margin-top: 60px;
         }
 
         .shadowGreenade {
             width: 80%;
-            margin-top: 60px;
         }
 
         .textContent {
             left: 60px; 
             font-size: 19px;
         }
+    }
 
-        h2 {
-            // position: absolute;
-            font-size: 120px;
-            //margin-top: 50px;
+    @media  (max-width: 890px) {
+        .greenade {
+            margin-top: 30px;
+        }
+
+        .shadowGreenade {
+            margin-top: 30px;
         }
     }
 
     @media (max-width: 768px) { /* Little Tablet */
         .topContent {
+
             h1 {
-                
+                left: -50px;
+                padding-top: 30px;
             }
   
             p {
-                /* Styles pour mobile ici */
+                margin-left: 100px;
+                font-size: 20px;
+                transform: translateY(-25px);
             }
         }
 
         .greenade {
             margin-left:70px;
+            margin-top: 50px;
         }
 
         .shadowGreenade {
             margin-left:70px;
-        }
-
-        .textContent {
-            /* Styles pour mobile ici */
+            margin-top: 50px;
         }
 
         h2 {
-            /* Styles pour mobile ici */
+            margin-bottom: 80px;
+            transform: translateY(-90px);
         }
     }
 
@@ -144,22 +175,6 @@
             h1 {
                 font-size: 1px;
             }
-  
-            p {
-                /* Styles pour mobile ici */
-            }
-        }
-
-        .greenade {
-            /* Styles pour mobile ici */
-        }
-
-        .textContent {
-            /* Styles pour mobile ici */
-        }
-
-        h2 {
-            /* Styles pour mobile ici */
         }
     }
 }
