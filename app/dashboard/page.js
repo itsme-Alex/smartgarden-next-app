@@ -1,6 +1,7 @@
 import styles
     from '@/styles/dashboard/page.module.scss';
 import CurrentWeather from "@/components/dashboard/CurrentWeather";
+import Forecast from "@/components/dashboard/Forecast";
 export default function Dashboard() {
     return (
         <div
@@ -11,6 +12,9 @@ export default function Dashboard() {
             </div>
             <div className={styles.mainContainer}>
                 <CurrentWeather/>
+            </div>
+            <div className={styles.mainContainer}>
+                <Forecast/>
             </div>
         </div>
     )
