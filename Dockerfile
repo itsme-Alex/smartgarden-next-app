@@ -33,4 +33,4 @@ EXPOSE 3009
 
 ENV PORT 3009
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

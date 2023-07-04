@@ -1,4 +1,10 @@
-.dashboardLayout {
-  display: flex;
-  flex-direction:row;
+
+
+
+
+@media (min-width: 600px) {
+  .dashboardLayout {
+    display: flex;
+    flex-direction:row;
+  }
 }
