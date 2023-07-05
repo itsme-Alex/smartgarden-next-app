@@ -5,14 +5,36 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px;
-    background: transparent;
+    padding: 25px;
     z-index: 10000;
+    background: linear-gradient(to right, rgb(var(--background-end-rgb)), rgb(var(--background-start-rgb)));
+}
+
+.navbar .hamburgerMenu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    z-index: 10;
+        
+    div {
+        width: 2rem;
+        height: 0.25rem;
+        background: #ffffff; // Change this to the color of your choice
+        border-radius: 10px;
+    }
 }
 
 .navLeft {
     font-size: 20px;
     font-weight: bold;
+    transition: 0.5s;
+
+    &:hover {
+        color: rgb(0, 0, 0);
+    }
 }
 
 .navRight a {
@@ -20,29 +42,27 @@
     text-decoration: none;
     color: inherit;
     font-size: 15px;
+    transition: 0.5s;
+  
+    &:hover {
+      color: rgb(0, 0, 0);
+    }
 }
 
 @media (max-width: 1024px) {
-    .navbar {
-        width: 100%;
-        position: fixed;
-        top: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        background: transparent;
-        z-index: 10000;
+
+}
+
+@media (max-width: 768px) {
+    .navbar .navRight {
+        display: none;
     }
 
-    .navLeft {
-        font-size: 20px;
-        font-weight: bold;
+    .navbar .hamburgerMenu {
+        display: flex;
     }
+}
+
+@media (max-width: 480px) {
     
-    .navRight a {
-        margin-left: 30px;
-        text-decoration: none;
-        color: inherit;
-    }
 }
