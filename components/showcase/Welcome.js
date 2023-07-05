@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from "../../styles/welcome.module.scss";
+import styles from "../../styles/showcase/welcome.module.scss";
 
 export default function Welcome() {
     return (
