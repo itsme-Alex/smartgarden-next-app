@@ -1,37 +1,45 @@
 .sidebar {
-  width: 250px;
-  height: 100vh;
-  background-color: black;
-  padding: 20px;
-  color: white;
+  display: none;
 }
 
-.logo {
-  padding-top: 5%;
-  margin-bottom: 50%;
 
-  a {
+@media screen and (min-width: 600px) {
+  .sidebar {
+    display: block;
+    width: 250px;
+    height: 100vh;
+    background-color: black;
+    padding: 20px;
     color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-  }
-}
 
-.navItems {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    .logo {
+      padding-top: 5%;
+      margin-bottom: 50%;
 
-  li {
-    margin-bottom: 10px;
+      a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
 
-    a {
-      color: white;
-      text-decoration: none;
+    .navItems {
+      list-style: none;
+      padding: 0;
+      margin: 0;
 
-      &:hover {
-        color: green;
+      li {
+        margin-bottom: 10px;
+
+        a {
+          color: white;
+          text-decoration: none;
+
+          &:hover {
+            color: green;
+          }
+        }
       }
     }
   }

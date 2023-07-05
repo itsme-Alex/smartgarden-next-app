@@ -1,0 +1,93 @@
+.footer {
+    margin-top: 100px;
+    width: 100%;
+    padding: 20px 0;
+    position: relative;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .item {
+    flex: 1;
+    margin: 20px;
+  }
+  
+  .title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .link {
+    text-decoration: none;
+
+    &:hover {
+        color:rgb(0, 0, 0)
+    }
+  }
+  
+  .text {
+    margin-bottom: 10px;
+    font-family: 'Poppins-Thin';
+    font-size: 15px;
+  }
+  
+  .input, .textarea {
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    outline: none;
+  }
+  
+  .input::placeholder, .textarea::placeholder {
+    color: rgb(255, 255, 255); /* Choisissez la couleur que vous souhaitez pour le placeholder */
+    opacity: 1; /* Nécessaire pour afficher correctement la couleur dans certains navigateurs */
+  }
+  
+  .button {
+    background-color: transparent;
+    color: white;
+    padding: 10px 20px;
+    border: solid 1px white;
+    border-radius: 20px;
+    cursor: pointer;
+
+    &:hover {
+        color: black;
+        border: solid 1px rgb(0, 0, 0); 
+    }
+  }
+  
+  .copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 10px;
+    font-family: 'Poppins-Regular';
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .item {
+      margin-bottom: 20px;
+    }
+  }
+  

@@ -3,8 +3,9 @@ import About from "@/components/showcase/About";
 import Navigation from "@/components/Navigation";
 import Contact from "@/components/showcase/Contact";
 import Portfolio from "@components/showcase/Portfolio"; 
+import Footer from "@components/Footer";
 
-import styles from"../styles/home.module.scss"
+import styles from"@styles/showcase/home.module.scss"
 
 export default function Home() {
   return (
@@ -21,6 +22,9 @@ export default function Home() {
           </div>
           <div id="contact">
               <Contact/>
+          </div>
+          <div>
+            <Footer/>
           </div>
       </main>
   )

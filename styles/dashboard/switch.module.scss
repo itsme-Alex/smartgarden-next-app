@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  height: 2.5rem;
+  width: 100px;
+  background-color: rgba(111, 165, 217, 1);
+  border: 2px solid rgba(206, 212, 221, 1);
+  border-radius: 14px;
+  justify-content: flex-start;
+}
+
+.container.end {
+  justify-content: flex-end;
+}
+
+.circle {
+  height: 2rem;
+  width: 3rem;
+  background-color: rgba(206, 212, 221, 1);
+  border-radius: 14px;
+  margin: 0.1rem 0.25rem;
+  padding: 4px;
+  text-align: center;
+
+  span {
+    font-size: 0.8rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+
