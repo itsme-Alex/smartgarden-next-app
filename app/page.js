@@ -5,7 +5,7 @@ import Contact from "@/components/showcase/Contact";
 import Portfolio from "@components/showcase/Portfolio"; 
 import Footer from "@components/Footer";
 
-import styles from"../styles/home.module.scss"
+import styles from"@styles/showcase/home.module.scss"
 
 export default function Home() {
   return (

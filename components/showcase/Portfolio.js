@@ -1,4 +1,4 @@
-import styles from '../../styles/portfolio.module.scss'
+import styles from '../../styles/showcase/portfolio.module.scss'
 import Link from 'next/link'
 
 export default function Portfolio() {
