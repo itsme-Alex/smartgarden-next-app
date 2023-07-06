@@ -1,4 +1,4 @@
-import styles from '../../styles/contact.module.scss'
+import styles from '../../styles/showcase/contact.module.scss'
 
 export default function Contact() {
   return (
