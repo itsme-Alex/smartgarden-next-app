@@ -17,7 +17,7 @@
     width: 2rem;
     height: 2rem;
     cursor: pointer;
-    z-index: 10;
+    z-index: 10000000;
         
     div {
         width: 2rem;
@@ -49,6 +49,31 @@
     }
 }
 
+.menuMobile {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100vh;
+    background: #ffffff;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    z-index: 10000;  // So it appears on top of everything else
+    transition: 0.3s ease-in-out;
+}
+
+.menuMobile a {
+    color: #000000;  // Black links
+    text-decoration: none;
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: none;  // hide links by default
+}
+
 @media (max-width: 1024px) {
 
 }
@@ -60,6 +85,14 @@
 
     .navbar .hamburgerMenu {
         display: flex;
+    }
+
+    .menuMobile {
+        display: flex;
+    
+        a {
+            display: block;
+        }
     }
 }
 

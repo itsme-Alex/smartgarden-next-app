@@ -30,7 +30,7 @@ const linkVariants = {
     closed: { opacity: 0, pointerEvents: "none" },
 };
 
-export default function Navigation() {
+export default function Navigation2() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -41,17 +41,8 @@ export default function Navigation() {
                 </Link>
             </div>
             <div className={styles.navRight}>
-                <Link href="#home">
+                <Link href="/">
                     Accueil
-                </Link>
-                <Link href="#portfolio">
-                    Découvrir
-                </Link>
-                <Link href="#about">
-                    À propos
-                </Link>
-                <Link href="#contact">
-                    Contact
                 </Link>
                 <Link href="/shop">
                     Boutique
@@ -81,24 +72,11 @@ export default function Navigation() {
                 variants={menuVariants}
             >
                 <motion.div variants={linkVariants}>
-                    <Link href="#home">
+                    <Link href="/">
                         Accueil
                     </Link>
                 </motion.div>
                 <motion.div variants={linkVariants}>
-                    <Link href="#portfolio">
-                        Découvrir
-                    </Link>
-                </motion.div>
-                <motion.div variants={linkVariants}>
-                    <Link href="#about">
-                        À propos
-                    </Link>
-                </motion.div>
-                <motion.div variants={linkVariants}>
-                    <Link href="#contact">
-                        Contact
-                    </Link>
                 </motion.div>
                 <motion.div variants={linkVariants}>
                     <Link href="/shop">
@@ -114,4 +92,3 @@ export default function Navigation() {
         </nav>
     )
 }
-
