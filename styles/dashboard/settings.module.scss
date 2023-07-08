@@ -24,21 +24,16 @@
   position: fixed;
   top: 0;
   left: 0;
+  background-color: rgba(238, 240, 245, 1);
+  padding: 20px;
+  padding-top: 50%;
   width: 100%;
   height: 100%;
-  background-color: rgba(238, 240, 245, 1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 9999;
 }
 
-.modal-content {
-  background-color: red;
-  padding: 20px;
-  border-radius: 14px;
-  width: 100px;
-  height: 100px;
+.modalContent {
+  text-align: center;
 }
 
 
