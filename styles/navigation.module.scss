@@ -8,6 +8,7 @@
     padding: 25px;
     z-index: 10000;
     background: linear-gradient(to right, rgb(var(--background-end-rgb)), rgb(var(--background-start-rgb)));
+    transition: background 0.5s ease-in-out;
 }
 
 .navbar .hamburgerMenu {
@@ -22,9 +23,17 @@
     div {
         width: 2rem;
         height: 0.25rem;
-        background: #ffffff; // Change this to the color of your choice
+        background: #ffffff;
         border-radius: 10px;
     }
+}
+
+.navbar.transparent {
+    background: transparent;
+}
+
+.navbar:hover {
+    background: linear-gradient(to right, rgb(var(--background-end-rgb)), rgb(var(--background-start-rgb)));
 }
 
 .navLeft {
@@ -59,19 +68,23 @@
     display: none;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     padding: 0 30px;
     box-sizing: border-box;
-    z-index: 10000;  // So it appears on top of everything else
+    z-index: 10000;
     transition: 0.3s ease-in-out;
 }
 
 .menuMobile a {
-    color: #000000;  // Black links
+    color: #000000;
     text-decoration: none;
     font-size: 20px;
     margin-bottom: 20px;
-    display: none;  // hide links by default
+    display: none; 
+
+    &:hover {
+        color: rgb(113, 163, 52);
+    }
 }
 
 @media (max-width: 1024px) {
