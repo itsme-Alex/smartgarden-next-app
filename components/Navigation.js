@@ -34,7 +34,7 @@ export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className={styles.navbar}>
+        <nav className={`${styles.navbar} ${styles.transparent}`}>
             <div className={styles.navLeft}>
                 <Link href="/">
                 Smart Garden

@@ -8,7 +8,7 @@ export default function Register() {
         <div>
             <Navigation2 />
             <div className={styles.container}>
-                <img src="/images/OrdiWP.png" className={styles.image}></img>
+                <img src="/images/connexion.png" className={styles.image}></img>
                 <div>
                     <h2 className={styles.title}>S'inscrire</h2>
                     <form className={styles.form}>
