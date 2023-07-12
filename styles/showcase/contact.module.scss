@@ -1,7 +1,11 @@
 .container {
-  max-width: 96vw;
+  max-width: 95vw;
   margin: 0 auto;
   margin-bottom: 80px;
+  min-height: 100vh;
+  display: flex;       
+  flex-direction: column;
+  justify-content: center;
 }
 
 .title {
@@ -19,8 +23,7 @@
   justify-content: space-between;
 }
 
-.left,
-.right {
+.left, .right {
   flex: 1;
 }
 
@@ -40,11 +43,11 @@
   outline: none;
 }
 
-.textarea {
-  min-height: 100px; /* Hauteur minimale initiale */
-  max-height: 00px; /* Hauteur maximale */
-  resize: vertical; /* Permet le redimensionnement vertical uniquement */
-}
+// .textarea {
+//   min-height: 100px; /* Hauteur minimale initiale */
+//   max-height: 00px; /* Hauteur maximale */
+//   resize: vertical; /* Permet le redimensionnement vertical uniquement */
+// }
 
 .input::placeholder,
 .textarea::placeholder {
@@ -67,6 +70,14 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    max-width: 88vw;
+  }
+
+  .title {
+    font-size: 50px;
+  }
+
   .form {
     flex-direction: column;
   }

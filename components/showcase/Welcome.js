@@ -11,7 +11,7 @@ const imagesTexts = [
       mobile: "/images/WaterPilot.png",
     },
     title: "LE WATER PILOT",
-    text: "Votre système d'arrosage intelligent",
+    text: "Un système d'arrosage intelligent",
     button: "Découvrir"
   },
   {
@@ -20,7 +20,7 @@ const imagesTexts = [
       mobile: "/images/OrdiWP.png",
     },
     title: "DASHBOARD",
-    text: "Controle de l'arrosage à distance",
+    text: "Contrôle de l'arrosage à distance",
     button: "Découvrir"
   },
   {
@@ -29,7 +29,7 @@ const imagesTexts = [
       mobile: "/images/arrosage.png",
     },
     title: "ARROSAGE",
-    text: "Laisser le système s'occuper de vos plantes",
+    text: "Le système s'occupe de vos plantes",
     button: "Découvrir"
   },
 ];
@@ -76,7 +76,7 @@ export default function Welcome() {
             >
               <p className={styles.text}>{imagesTexts[index].text}</p>
               <h1 className={styles.title}>{imagesTexts[index].title}</h1>
-              <a className={styles.button}>{imagesTexts[index].button}</a>
+              <a href="#about" className={styles.button}>{imagesTexts[index].button}</a>
             </motion.div>
           </AnimatePresence>
         </div>

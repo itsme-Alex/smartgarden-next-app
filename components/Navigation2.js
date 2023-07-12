@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import styles from '../styles/navigation.module.scss';
+import styles from '../styles/navigation2.module.scss';
 import { motion } from "framer-motion";
 
 const topVariants = {
     closed: { rotate: 0, translateY: 0 },
-    open: { rotate: 45, translateY: 10.5, backgroundColor: "#000000"},
+    open: { rotate: 45, translateY: 10.5},
 }
 
 const middleVariants = {
@@ -17,7 +17,7 @@ const middleVariants = {
 
 const bottomVariants = {
     closed: { rotate: 0, translateY: 0 },
-    open: { rotate: -45, translateY: -10.5, backgroundColor: "#000000"},
+    open: { rotate: -45, translateY: -10.5},
 }
 
 const menuVariants = {
@@ -34,13 +34,13 @@ export default function Navigation2() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className={styles.navbar}>
-            <div className={styles.navLeft}>
+        <nav className={styles.navbar2}>
+            <div className={styles.navLeft2}>
                 <Link href="/">
                 Smart Garden
                 </Link>
             </div>
-            <div className={styles.navRight}>
+            <div className={styles.navRight2}>
                 <Link href="/">
                     Accueil
                 </Link>
@@ -48,7 +48,7 @@ export default function Navigation2() {
                     Boutique
                 </Link>
                 <Link href="/login">
-                    Se connecter
+                    Connexion
                 </Link>
             </div>
             <div className={styles.hamburgerMenu} onClick={() => setIsOpen(!isOpen)}>
@@ -85,7 +85,7 @@ export default function Navigation2() {
                 </motion.div>
                 <motion.div variants={linkVariants}>
                     <Link href="/login">
-                        Se connecter
+                        Connexion
                     </Link>
                 </motion.div>
             </motion.div>

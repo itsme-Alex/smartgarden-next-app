@@ -6,17 +6,20 @@ export default function Shop() {
     return (
         <div>
             <Navigation2 />
-            <div className={styles.container}>
-                <img src="/images/WaterPilot.png" className={styles.image}></img>
-                <div className={styles.productInfo}>
-                    <h1 className={styles.title}>Water Pilot</h1>
-                    <p className={styles.price}>250$</p>
-                    <p className={styles.description}>Description de votre produit ici. Ceci est une super description sur produit que Smart Garden propose</p>
-                    <button className={styles.button}>Ajouter au panier</button>
+                <div className={styles.page}>
+                    <div className={styles.container}>
+                        <img src="/images/WaterPilot.png" className={styles.image}></img>
+                        <div className={styles.details}>
+                            <h2 className={styles.title}>Water Pilot 2023</h2>
+                            <p className={styles.price}>$125</p>
+                            <p className={styles.description}>Le Water Pilot est le système d'arrosage automatique idéal pour votre jardin !</p>
+                            <button className={styles.button}>Ajouter au panier</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
             <Footer />
         </div>
     )
 }
+
 

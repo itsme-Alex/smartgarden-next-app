@@ -1,13 +1,13 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import styles from '../styles/navigation.module.scss';
 import { motion } from "framer-motion";
 
 const topVariants = {
     closed: { rotate: 0, translateY: 0 },
-    open: { rotate: 45, translateY: 10.5, backgroundColor: "#000000"},
+    open: { rotate: 45, translateY: 10.5},
 }
 
 const middleVariants = {
@@ -17,7 +17,7 @@ const middleVariants = {
 
 const bottomVariants = {
     closed: { rotate: 0, translateY: 0 },
-    open: { rotate: -45, translateY: -10.5, backgroundColor: "#000000"},
+    open: { rotate: -45, translateY: -10.5},
 }
 
 const menuVariants = {
@@ -32,44 +32,58 @@ const linkVariants = {
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isTop, setIsTop] = useState(true);
+
+    const scrollListener = useCallback(() => {
+        const isTop = window.scrollY <= 50;
+        setIsTop(isTop);
+    }, []);
+
+    useEffect(() => {
+        window.addEventListener('scroll', scrollListener);
+    
+        return () => {
+            window.removeEventListener('scroll', scrollListener);
+        };
+    }, [scrollListener]);
 
     return (
-        <nav className={`${styles.navbar} ${styles.transparent}`}>
-            <div className={styles.navLeft}>
+        <nav className={`${styles.navbar} ${isTop ? styles.transparent : ''}`}>
+            <div className={`${styles.navLeft} ${isTop ? styles.linkTop : styles.linkScrolled}`}>
                 <Link href="/">
-                Smart Garden
+                    Smart Garden
                 </Link>
             </div>
             <div className={styles.navRight}>
-                <Link href="#home">
+                <Link className={isTop ? styles.linkTop : styles.linkScrolled} href="/">
                     Accueil
                 </Link>
-                <Link href="#portfolio">
-                    Découvrir
-                </Link>
-                <Link href="#about">
+                <Link className={isTop ? styles.linkTop : styles.linkScrolled} href="#about">
                     À propos
                 </Link>
-                <Link href="#contact">
+                <Link className={isTop ? styles.linkTop : styles.linkScrolled} href="#contact">
                     Contact
                 </Link>
-                <Link href="/shop">
+                <Link className={isTop ? styles.linkTop : styles.linkScrolled} href="/shop">
                     Boutique
                 </Link>
-                <Link href="/login">
-                    Se connecter
+                <Link className={isTop ? styles.linkTop : styles.linkScrolled} href="/login">
+                    Connexion
                 </Link>
             </div>
             <div className={styles.hamburgerMenu} onClick={() => setIsOpen(!isOpen)}>
                 <motion.div
+                    className={`${styles.burgerDiv} ${isTop ? styles.burgerTop : styles.burgerScrolled}`}
                     variants={topVariants}
                     animate={isOpen ? "open" : "closed"}
                 />
                 <motion.div
+                    className={`${styles.burgerDiv} ${isTop ? styles.burgerTop : styles.burgerScrolled}`}
                     variants={middleVariants}
                     animate={isOpen ? "open" : "closed"}
                 />
                 <motion.div
+                    className={`${styles.burgerDiv} ${isTop ? styles.burgerTop : styles.burgerScrolled}`}
                     variants={bottomVariants}
                     animate={isOpen ? "open" : "closed"}
                 />
@@ -83,11 +97,6 @@ export default function Navigation() {
                 <motion.div variants={linkVariants}>
                     <Link href="#home">
                         Accueil
-                    </Link>
-                </motion.div>
-                <motion.div variants={linkVariants}>
-                    <Link href="#portfolio">
-                        Découvrir
                     </Link>
                 </motion.div>
                 <motion.div variants={linkVariants}>
@@ -107,7 +116,7 @@ export default function Navigation() {
                 </motion.div>
                 <motion.div variants={linkVariants}>
                     <Link href="/login">
-                        Se connecter
+                        Connexion
                     </Link>
                 </motion.div>
             </motion.div>

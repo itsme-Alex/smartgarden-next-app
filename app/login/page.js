@@ -8,9 +8,9 @@ export default function Login() {
         <div>
             <Navigation2 />
             <div className={styles.container}>
-                <img src="/images/connexion.png" className={styles.image}></img>
+                <img src="/images/herbe.png" className={styles.image}></img>
                 <div>
-                    <h2 className={styles.title}>Se connecter</h2>
+                    <h2 className={styles.title}>Connexion</h2>
                     <form className={styles.form}>
                         <div className={styles.inputGroup}>
                             <input type="email" className={styles.input} placeholder="Email" />
@@ -18,7 +18,7 @@ export default function Login() {
                         <div className={styles.inputGroup}>
                             <input type="password" className={styles.input} placeholder="Mot de passe" />
                         </div>
-                        <button type="submit" className={styles.button}>Se connecter</button>
+                        <button type="submit" className={styles.button}>Connexion</button>
                         <p className={styles.loginLink}>Pas encore de compte ? <Link href="/register">S'inscrire</Link></p>
                     </form>
                 </div>
