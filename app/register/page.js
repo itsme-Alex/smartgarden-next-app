@@ -8,9 +8,9 @@ export default function Register() {
         <div>
             <Navigation2 />
             <div className={styles.container}>
-                <img src="/images/connexion.png" className={styles.image}></img>
+                <img src="/images/herbe.png" className={styles.image}></img>
                 <div>
-                    <h2 className={styles.title}>S'inscrire</h2>
+                    <h2 className={styles.title}>Inscription</h2>
                     <form className={styles.form}>
                         <div className={styles.inputGroup}>
                             <input type="text" className={styles.input} placeholder="Nom" />
