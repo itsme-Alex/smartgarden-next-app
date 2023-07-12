@@ -25,12 +25,7 @@
   flex: 1 0 calc(33.333% - 20px);
   margin: 10px;
   padding: 20px;
-  // max-height: 330px; // ou la hauteur que vous voulez pour les cartes réduites
   overflow: hidden;
-}
-
-.cardExpanded {
-  max-height: none; // permet à la carte de prendre autant de place que nécessaire
 }
 
 .cardTitle {

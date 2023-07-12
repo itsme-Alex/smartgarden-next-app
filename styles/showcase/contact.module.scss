@@ -34,7 +34,7 @@
 .input,
 .textarea {
   width: 100%;
-  margin-bottom: 60px;
+  margin-bottom: 70px;
   padding: 10px;
   box-sizing: border-box;
   background: transparent;
@@ -43,11 +43,9 @@
   outline: none;
 }
 
-// .textarea {
-//   min-height: 100px; /* Hauteur minimale initiale */
-//   max-height: 00px; /* Hauteur maximale */
-//   resize: vertical; /* Permet le redimensionnement vertical uniquement */
-// }
+.textarea {
+  min-height: 70px;
+}
 
 .input::placeholder,
 .textarea::placeholder {
@@ -80,6 +78,11 @@
 
   .form {
     flex-direction: column;
+  }
+
+  .input,
+  .textarea {
+    margin-bottom: 30px;
   }
 
   .left,
