@@ -1,6 +1,6 @@
 'use client'
 
-import React, {use, useState} from 'react';
+import React, { useEffect , useState } from 'react';
 import styles from '@/styles/dashboard/settings.module.scss';
 import {faSliders} from '@fortawesome/free-solid-svg-icons';
 import {faClock} from '@fortawesome/free-solid-svg-icons';
@@ -10,48 +10,59 @@ import {AnimatePresence, motion} from "framer-motion";
 import SettingsButton from '@/components/dashboard/utils/SettingsButton';
 import Switch from '@/components/dashboard/utils/Switch';
 import SettingsSlider from '@/components/dashboard/utils/SettingsSlider';
-
-const API_URL = `http://162.19.92.61:3002/electrovalve`;
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg4MzcyOTcwLCJleHAiOjE2ODkyMzY5NzB9.1VXX8bQfE5DqR5MyS3kIo3sBVesGkqmMm673-ZwNpNk";
-
-const getElectrovalve = async () => {
-    try {
-        const res = await fetch(API_URL, {
-            method: "GET",
-            headers: {
-                "Content-type": "application/json;charset=UTF-8",
-                Authorization: "Bearer " + token
-            }
-        });
-        return await res.json();
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-const electrovalveData = getElectrovalve();
+import {
+    getElectrovalve
+} from "@utils/data-fetcher";
+import CustomButton
+    from "@components/dashboard/utils/CustomButton";
+import AddElectrovalveForm
+    from "@components/dashboard/Forms/AddElectroValveForm";
 
 export default function Settings() {
-    const electrovalves = use(electrovalveData);
+    const [electrovalves, setElectrovalves] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedElectrovalve, setSelectedElectrovalve] = useState(null);
-    const handleModal = (electrovalveId, electrovalveName) => {
-        setModalIsOpen(!modalIsOpen);
+    const [modalAction, setModalAction] = useState(null);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getElectrovalve();
+                setElectrovalves(data);
+            } catch (err) {
+                console.log("Erreur lors de la récupération des données:", err);
+            }
+        };
+        fetchData();
+    }, []);
+    const openElectrovalveSettings = (electrovalveId, electrovalveName) => {
+        setModalIsOpen(true);
         setSelectedElectrovalve({"name": electrovalveName, "id": electrovalveId});
+        setModalAction('settingsSlider');
     }
+
     const  handleWater = () => { console.log("Activation de l'arrosage...");}
+
+    const handleAddElectrovalve = () => {
+        setModalAction('addElectrovalve');
+        setModalIsOpen(true);
+    };
 
     return (
         <div>
             <p>Paramétrages</p>
-            {electrovalves.map((electrovalve) => (
+            {electrovalves.length === 0 ? (
+                <p>Aucune électrovanne enregistrée en base de données.</p>
+            ) : (
+            electrovalves.map((electrovalve) => (
                 <div key={electrovalve.id} className={styles.valveContainer}>
                     <div>
                         <p>Circuit {electrovalve.position } : {electrovalve.name}</p>
                     </div>
                     <div className={styles.buttonPanel}>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                            <SettingsButton icon={faSliders} onClick={()=> handleModal(electrovalve.id, electrovalve.name)}/>
+                            <SettingsButton icon={faSliders} onClick={() => openElectrovalveSettings(electrovalve.id, electrovalve.name)} />
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                             <SettingsButton destination="schedules" icon={faClock} />
@@ -62,7 +73,8 @@ export default function Settings() {
                         <Switch isAutomatic={electrovalve.isAutomatic}/>
                     </div>
                 </div>
-            ))}
+            )))}
+            <CustomButton text="Ajouter" onClick={handleAddElectrovalve} />
             <AnimatePresence>
                 {modalIsOpen && (
                     <motion.div
@@ -71,12 +83,17 @@ export default function Settings() {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.5 }}>
                         <div className={styles.modalContent}>
-                            <SettingsSlider valve={selectedElectrovalve}/>
-                            <button onClick={() => setModalIsOpen(false)}>Fermer</button>
+                            {modalAction === 'addElectrovalve' && <AddElectrovalveForm />}
+                            {modalAction === 'settingsSlider' && <SettingsSlider valve={selectedElectrovalve}/>}
+                            <button onClick={() => {
+                                setModalIsOpen(false);
+                                setModalAction(null);  // Réinitialisez l'action lors de la fermeture de la modale
+                            }}>Fermer</button>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
+
         </div>
     );
 }
