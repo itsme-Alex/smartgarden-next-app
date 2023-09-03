@@ -6,6 +6,7 @@ import Navigation2 from "@components/Navigation2";
 import Footer from "@components/Footer";
 import Image from "next/image";
 import profilePic from "../../public/images/herbe.png";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ export default function Login() {
 
     const body = {
       username: username,
-      password: password,
+      password: password
     };
 
     try {
@@ -29,8 +30,8 @@ export default function Login() {
       });
 
       if (res.status === 200) {
-        const data = await res.json();
-        console.log(data.token);
+        console.log("cookie httpOnly reçu",res);
+    
       } else {
         // Gérer les erreurs si nécessaire
         console.error("Erreur lors de la connexion");
