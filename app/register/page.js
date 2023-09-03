@@ -39,7 +39,7 @@ export default function Register() {
 
   return (
     <div>
-      <Navigation2 />
+      {/* <Navigation2 /> */}
       <div className={styles.container}>
         <Image src={profilePic} alt="grass pictures" className={styles.image} />
         <div>
