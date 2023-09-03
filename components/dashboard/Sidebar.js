@@ -16,10 +16,10 @@ const Sidebar = () => {
             name: 'Planifications',
             path: '/dashboard/schedules',
         },
-        {
-            name: 'Réglages',
-            path: '/dashboard/settings',
-        },
+        // {
+        //     name: 'Réglages',
+        //     path: '/dashboard/settings',
+        // },
     ];
     return (
         <div className={styles.sidebar}>
