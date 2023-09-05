@@ -2,36 +2,28 @@ import Link from 'next/link'
 import styles from '../../styles/showcase/about.module.scss'
 
 export default function About() {
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>À PROPOS</h2>
       <div className={styles.cards}>
         <div className={styles.card}>
-          <h3 className={styles.cardTitle}>Brand identity</h3>
+          <h3 className={styles.cardTitle}>Water Pilot</h3>
           <p className={styles.cardParagraph}>
-            Bringing the history of your brand to the forefront gives an emotional dimension to your visual identity, which is essential today more than ever in today's digital landscape.
-          </p>
-          <Link className={styles.cardLink} href={`/`}>
-            En savoir plus
-          </Link>
+            Smart Garden vous présente le Water Pilot, un système d'arrosage automatique intelligent. Le Water Pilot s'adapte aux besoins spécifiques de vos plantes, ajuste l'arrosage en fonction des conditions environnementales et favorise une croissance optimale.
+          </p>     
         </div>
         <div className={styles.card}>
-          <h3 className={styles.cardTitle}>Technology</h3>
+          <h3 className={styles.cardTitle}>L'écologie</h3>
           <p className={styles.cardParagraph}>
-            Bringing the history of your brand to the forefront gives an emotional dimension to your visual identity, which is essential today more than ever in today's digital landscape. Bringing the history of your brand to the forefront.
+           Le Water Pilot est un acte de respect envers notre planète. En économisant l'eau et en favorisant une croissance plus saine des plantes, il contribue à la préservation de notre environnement. Avec le Water Pilot, vous pouvez cultiver un jardin magnifique tout en réduisant votre empreinte écologique.        
           </p>
-          <Link className={styles.cardLink} href={`/`}>
-            En savoir plus
-          </Link>
         </div>
         <div className={styles.card}>
-          <h3 className={styles.cardTitle}>UX/UI Design</h3>
+          <h3 className={styles.cardTitle}>Le tableau de bord</h3>
           <p className={styles.cardParagraph}>
-            Bringing the history of your brand to the forefront gives an emotional dimension to your visual identity.
+           Le Water Pilot est accompagné d'une application mobile intuitive, permettant un contrôle à distance et une personnalisation des paramètres d'arrosage. Vous pouvez surveiller en temps réel l'état de votre jardin et optimiser le soin de vos plantes.      
           </p>
-          <Link className={styles.cardLink} href={`/`}>
-            En savoir plus
-          </Link>
         </div>
       </div>
     </div>

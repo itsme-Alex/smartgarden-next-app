@@ -9,11 +9,8 @@ export default function Footer() {
                     <h3 className={styles.title}>Liens</h3>
                     <ul className={styles.list}>
                         <li><Link className={styles.link} href="/">Accueil</Link></li>
-                        <li><Link className={styles.link} href="#about">A propos</Link></li>
-                        <li><Link className={styles.link} href="#services">Services</Link></li>
-                        <li><Link className={styles.link} href="#contact">Contact</Link></li>
-                        <li><Link className={styles.link} href="/register">Boutique</Link></li>
-                        <li><Link className={styles.link} href="/register">S'inscrire</Link></li>
+                        <li><Link className={styles.link} href="/login">Connexion</Link></li>
+                        <li><Link className={styles.link} href="/shop">Boutique</Link></li>
                     </ul>
                 </div>
                 <div className={styles.item}>
@@ -29,7 +26,7 @@ export default function Footer() {
                     <button className={styles.button}>Souscrire</button>
                 </div>
             </div>
-            <p className={styles.copyright}>Copyright &copy; 2023 Smart</p>
+            <p className={styles.copyright}>Copyright &copy; 2023 Smart Garden</p>
         </footer>
     );
 }

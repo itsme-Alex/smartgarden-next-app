@@ -1,79 +1,81 @@
-import styles from "../../styles/register.module.scss";
+"use client";
+import { useState } from "react";
+import styles from "../../styles/authenticate/authenticate.module.scss";
+import Link from "next/link";
+import Navigation2 from "@components/Navigation2";
+import Footer from "@components/Footer";
+import Image from "next/image";
+import profilePic from "../../public/images/herbe.png";
 
-const Register = () => (
-  <div className={styles.container}>
-    <div className={styles.image_gauche}></div>
+export default function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    <div className={styles.connexion}>
-      <b className={styles.smartGarden}>SMART GARDEN</b>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      <div className={styles.back_signup}>
-        <div className={styles.button}>
-          <img className={styles.back} alt="" src="images/back.png" />
-          <b className={styles.back}>Back</b>
-        </div>
-        <div className={styles.iHaveAnContainer}>
-          <b>I have an account!</b>
-          <b className={styles.signUp}>Sign Up</b>
-        </div>
-      </div>
+    const body = {
+      email: email,
+      password: password,
+    };
 
-      <div className={styles.crezVotreCompte}>Créez votre compte</div>
+    try {
+      const res = await fetch("http://127.0.0.1:8080/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
-      <div className={styles.form}>
+      const data = await res.json();
+      console.log(data);
+
+      // Vous pouvez ajouter une logique supplémentaire ici pour gérer la réponse de l'API.
+    } catch (error) {
+      console.error("Erreur lors de l'inscription:", error);
+    }
+  };
+
+  return (
+    <div>
+      {/* <Navigation2 /> */}
+      <div className={styles.container}>
+        <Image src={profilePic} alt="grass pictures" className={styles.image} />
         <div>
-          <b className={styles.text}>Email</b>
-          <div className={styles.text_input}>
-            <div className={styles.inputField}>
-              <img
-                className={styles.vuesaxbolduserIcon}
-                alt="User Icon"
-                src="images/vuesaxbolduser.png"
-              />
+          <h2 className={styles.title}>Inscription</h2>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.inputGroup}>
+              <input type="text" className={styles.input} placeholder="Nom" />
+            </div>
+            <div className={styles.inputGroup}>
               <input
-                type="text"
-                className={styles.email}
-                placeholder="Type here"
+                type="email"
+                className={styles.input}
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-          </div>
-        </div>
-
-        <div>
-          <b className={styles.text}>Mot de passe</b>
-          <div className={styles.text_input}>
-            <div className={styles.cadenas_Parent}>
-              <img
-                className={styles.cadenas}
-                alt="Password Icon"
-                src="images/vuesaxboldlock.png"
-              />
+            <div className={styles.inputGroup}>
               <input
                 type="password"
-                className={styles.password}
-                placeholder="*****************"
+                className={styles.input}
+                placeholder="Mot de passe"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-          </div>
+            <button type="submit" className={styles.button}>
+              S'inscrire
+            </button>
+            <p className={styles.loginLink}>
+              Vous avez déjà un compte ? <Link href="/login">Se connecter</Link>
+            </p>
+          </form>
         </div>
       </div>
-      {/* <div className={styles.remember_password}>
-        <div className={styles.checkbox}>
-          <input type="checkbox" className={styles.checkboxChild} />
-          <b className={styles.Remember_me}> Remember me</b>
-        </div>
-        <div className={styles.forgotPassword}>Forgot password?</div>
-      </div> */}
-      <div className={styles.bouton}>
-        <div className={styles.se_connecter}>Se connecter</div>
-        <img
-          className={styles.fleche_connexion}
-          alt=""
-          src="images/fleche-connexion.png"
-        />
-      </div>
+      <Footer />
     </div>
-  </div>
-);
-
-export default Register;
+  );
+}
