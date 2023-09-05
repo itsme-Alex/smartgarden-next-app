@@ -20,6 +20,9 @@ export default function Dashboard() {
             <div className={styles.mainContainer}>
                 <Settings/>
             </div>
+            <div className={styles.mainContainer}>
+                <IrrigationsHistory/>
+            </div>
         </div>
     )
 }
