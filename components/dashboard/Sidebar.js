@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import styles from '@/styles/dashboard/sidebar.module.scss';
+import styles from '../../styles/dashboard/sidebar.module.scss';
 
 const Sidebar = () => {
     const sidebarData = [
