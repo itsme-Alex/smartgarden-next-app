@@ -17,7 +17,7 @@ export default function Login() {
 
     const body = {
       username: username,
-      password: password
+      password: password,
     };
 
     try {
@@ -30,8 +30,11 @@ export default function Login() {
       });
 
       if (res.status === 200) {
-        console.log("cookie httpOnly reçu",res);
-    
+        const data = await res.json();
+
+        console.log("token", data.token);
+        document.cookie = `jwtToken=${data.token};secure; max-age=36000`;
+        console.log("cookie", document.cookie);
       } else {
         // Gérer les erreurs si nécessaire
         console.error("Erreur lors de la connexion");
