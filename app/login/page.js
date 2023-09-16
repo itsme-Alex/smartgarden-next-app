@@ -33,7 +33,7 @@ export default function Login() {
         const data = await res.json();
 
         console.log("token", data.token);
-        document.cookie = `jwtToken=${data.token}; max-age=36000`;
+        document.cookie = `jwtToken=${data.token};secure; max-age=36000`;
         console.log("cookie", document.cookie);
       } else {
         // Gérer les erreurs si nécessaire
