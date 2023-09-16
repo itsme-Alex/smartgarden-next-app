@@ -28,25 +28,26 @@ export default function Dashboard() {
         }
 
         const data = await apiRes.json();
-        res.status(200).json(data);
+        apiRes.status(200).json(data);
       } catch (error) {
-        res.status(500).json({ message: error.message });
+        apiRes.status(500).json({ message: error.message });
       }
-      try {
-        const response = await fetch("/api/electrovalves");
+      //   try {
+      //     const response = await fetch("/api/electrovalves");
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response}`);
-        }
-        const data = await response.json();
-        console.log(data);
-        // setElectrovalves(data);
-      } catch (error) {
-        console.error("Fetching data failed", error);
-      }
+      //     if (!response.ok) {
+      //       throw new Error(`HTTP error! Status: ${response}`);
+      //     }
+      //     const data = await response.json();
+      //     console.log(data);
+      //     // setElectrovalves(data);
+      //   } catch (error) {
+      //     console.error("Fetching data failed", error);
+      //   }
+      // }
+
+      fetchData();
     }
-
-    fetchData();
   }, []);
   return (
     <div className={styles.page}>
