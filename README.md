@@ -18,17 +18,26 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Configuration HTTPS pour le Développement
 
-To learn more about Next.js, take a look at the following resources:
+Afin de garantir la sécurité des données en transit et d'aligner notre environnement de développement avec nos pratiques de production, nous avons opté pour l'utilisation de HTTPS même en développement local. Voici comment configurer votre environnement pour que cela fonctionne :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Étape 1 : Récupérer les Certificats
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Accédez au Drive où les fichiers ont été partagés (lien reçu par mail le 16/09) et téléchargez le dossier certs.
+Placez le dossier certs à l'endroit appropriésur votre ordinateur.
+Placez le fichier server.js à la racine du projet.
 
-## Deploy on Vercel
+### Étape 2 : Mise en place du Serveur
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Assurez-vous d'avoir le fichier server.js que j'ai partagé via le Drive. Ce fichier configure le serveur pour utiliser le certificat SSL et la clé privée pour HTTPS.
+Si nécessaire, adaptez le chemin vers le certificat et la clé privée dans server.js pour correspondre à l'endroit où vous avez placé le dossier certs.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Étape 3 : Lancer l'Application
+
+Démarrez l'application comme d'habitude. Si tout est correctement configuré, elle devrait maintenant s'exécuter en HTTPS sur l'adresse locale.
+Lorsque vous accédez à l'application via un navigateur, il se peut qu'un avertissement s'affiche car nous utilisons un certificat auto-signé. Vous pouvez ignorer cet avertissement en ajoutant une exception pour votre application locale.
+
+### Remarques Importantes
+
+N'utilisez jamais les certificats auto-signés pour la production. Ils sont uniquement destinés à être utilisés dans un environnement de développement.
