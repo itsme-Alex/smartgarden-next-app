@@ -32,7 +32,9 @@ export default function Login() {
       if (res.status === 200) {
         const data = await res.json();
 
-        console.log("token", data);
+        console.log("token", data.token);
+        document.cookie = `jwtToken=${data.token}; max-age=36000`;
+        console.log("cookie", document.cookie);
       } else {
         // Gérer les erreurs si nécessaire
         console.error("Erreur lors de la connexion");
