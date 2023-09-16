@@ -5,6 +5,7 @@ import styles from "@/styles/dashboard/page.module.scss";
 // import Forecast from "@/components/dashboard/Forecast";
 // import Settings from "@/components/dashboard/Settings";
 import Cookies from "js-cookie";
+import Navigation from "@components/Navigation";
 
 export default function Dashboard() {
   //   const [electrovalves, setElectrovalves] = useState(null);
