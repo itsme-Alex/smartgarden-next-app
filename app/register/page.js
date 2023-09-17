@@ -18,7 +18,8 @@ export default function Register() {
       email: email,
       password: password,
     };
-
+    //TODO:ajouter les password requirements
+    //TODO: se connecter automatiquement apres l'inscription
     try {
       const res = await fetch("http://127.0.0.1:8080/api/users", {
         method: "POST",

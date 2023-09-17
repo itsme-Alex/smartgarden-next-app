@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "../styles/navigation.module.scss";
 import { motion } from "framer-motion";
 import { isJwtValid } from "@/utils/isconnected";
+import { useRouter } from "next/navigation";
 
 const topVariants = {
   closed: { rotate: 0, translateY: 0 },
@@ -41,6 +42,7 @@ export default function Navigation() {
   }, []);
 
   const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setUserIsAuthenticated(isJwtValid());
@@ -53,6 +55,13 @@ export default function Navigation() {
       window.removeEventListener("scroll", scrollListener);
     };
   }, [scrollListener]);
+
+  const handleLogout = () => {
+    // Supprimez le cookie JWT. La façon exacte de le faire dépend de la manière dont vous avez configuré vos cookies.
+    document.cookie = "jwtToken=; Max-Age=0; path=/; secure";
+    setUserIsAuthenticated(false);
+    router.push("/");
+  };
 
   return (
     <nav className={`${styles.navbar} ${isTop ? styles.transparent : ""}`}>
@@ -94,12 +103,21 @@ export default function Navigation() {
           </Link>
         )}
         {userIsAuthenticated && (
-          <Link
-            className={isTop ? styles.linkTop : styles.linkScrolled}
-            href="/dashboard"
-          >
-            Dashboard
-          </Link>
+          <>
+            <Link
+              className={isTop ? styles.linkTop : styles.linkScrolled}
+              href="/dashboard"
+            >
+              Dashboard
+            </Link>
+            <a
+              className={isTop ? styles.linkTop : styles.linkScrolled}
+              onClick={handleLogout}
+              href="#"
+            >
+              Déconnexion
+            </a>
+          </>
         )}
       </div>
       <div className={styles.hamburgerMenu} onClick={() => setIsOpen(!isOpen)}>

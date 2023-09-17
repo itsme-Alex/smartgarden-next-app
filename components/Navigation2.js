@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "../styles/navigation2.module.scss";
 import { motion } from "framer-motion";
 import { isJwtValid } from "@utils/isconnected";
+import { useRouter } from "next/navigation";
 
 const topVariants = {
   closed: { rotate: 0, translateY: 0 },
@@ -34,10 +35,22 @@ const linkVariants = {
 export default function Navigation2() {
   const [isOpen, setIsOpen] = useState(false);
   const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setUserIsAuthenticated(isJwtValid());
   }, []);
+
+  useEffect(() => {
+    console.log("userIsAuthenticated", userIsAuthenticated);
+  }, [userIsAuthenticated]);
+
+  const handleLogout = () => {
+    // Supprimez le cookie JWT. La façon exacte de le faire dépend de la manière dont vous avez configuré vos cookies.
+    document.cookie = "jwtToken=; Max-Age=0; path=/; secure";
+    setUserIsAuthenticated(false);
+    router.push("/");
+  };
 
   return (
     <nav className={styles.navbar2}>
@@ -47,8 +60,15 @@ export default function Navigation2() {
       <div className={styles.navRight2}>
         <Link href="/">Accueil</Link>
         <Link href="/shop">Boutique</Link>
+        {userIsAuthenticated && (
+          <>
+            <Link href="/dashboard">Dashboard</Link>
+            <a onClick={handleLogout} href="#">
+              Déconnexion
+            </a>
+          </>
+        )}
         {!userIsAuthenticated && <Link href="/login">Connexion</Link>}
-        {userIsAuthenticated && <Link href="/dashboard">Dashboard</Link>}
       </div>
       <div className={styles.hamburgerMenu} onClick={() => setIsOpen(!isOpen)}>
         <motion.div
@@ -78,7 +98,8 @@ export default function Navigation2() {
           <Link href="/shop">Boutique</Link>
         </motion.div>
         <motion.div variants={linkVariants}>
-          <Link href="/login">Connexion</Link>
+          {!userIsAuthenticated && <Link href="/login">Connexion</Link>}
+          {userIsAuthenticated && <Link href="/dashboard">Dashboard</Link>}
         </motion.div>
       </motion.div>
     </nav>

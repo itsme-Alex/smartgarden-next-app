@@ -14,7 +14,7 @@ export default function Dashboard() {
     async function fetchData() {
       try {
         console.log("cookie", document.cookie);
-        let token = document.cookie.split("=")[1];
+        let token = Cookies.get("jwtToken");
 
         const apiRes = await fetch("http://127.0.0.1:8080/api/electrovalves", {
           headers: {
