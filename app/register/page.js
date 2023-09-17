@@ -19,6 +19,8 @@ export default function Register() {
       password: password,
     };
     // TODO : ajouter la ville et coordonnées GPS
+    //TODO:ajouter les password requirements
+    //TODO: se connecter automatiquement apres l'inscription
     try {
       const res = await fetch("http://127.0.0.1:8080/api/users", {
         method: "POST",

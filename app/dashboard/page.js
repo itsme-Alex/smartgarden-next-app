@@ -1,18 +1,11 @@
-'use client';
-import {
-    useState,
-    useEffect
-} from "react";
-import styles
-    from "@/styles/dashboard/page.module.scss";
-import CurrentWeather
-    from "@/components/dashboard/CurrentWeather";
-import Forecast
-    from "@/components/dashboard/Forecast";
-import Settings
-    from "@/components/dashboard/Settings";
-import Navigation
-    from "@components/Navigation";
+"use client";
+import { useState, useEffect } from "react";
+import styles from "@/styles/dashboard/page.module.scss";
+// import CurrentWeather from "@/components/dashboard/CurrentWeather";
+// import Forecast from "@/components/dashboard/Forecast";
+// import Settings from "@/components/dashboard/Settings";
+import Cookies from "js-cookie";
+import Navigation from "@components/Navigation";
 
 export default function Dashboard() {
 
@@ -27,17 +20,12 @@ export default function Dashboard() {
                 className={styles.mainContainer}>
                 <CurrentWeather/>
             </div>
-            <div
-                className={styles.mainContainer}>
+            <div className={styles.mainContainer}>
                 <Forecast/>
             </div>
-            <div
-                className={styles.mainContainer}>
+            <div className={styles.mainContainer}>
                 <Settings/>
-            </div>
-            {/*            <div className={styles.mainContainer}>
-                <IrrigationsHistory/>
-            </div>*/}
-        </div>
-    )
+            </div> */}
+    </div>
+  );
 }
