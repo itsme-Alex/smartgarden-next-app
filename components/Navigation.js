@@ -167,9 +167,16 @@ export default function Navigation() {
           </motion.div>
         )}
         {userIsAuthenticated && (
-          <motion.div variants={linkVariants}>
-            <Link href="/dashboard">Dashboard</Link>
-          </motion.div>
+          <>
+            <motion.div variants={linkVariants}>
+              <Link href="/dashboard">Dashboard</Link>
+            </motion.div>
+            <motion.div variants={linkVariants}>
+              <a onClick={handleLogout} href="#">
+                Déconnexion
+              </a>
+            </motion.div>
+          </>
         )}
       </motion.div>
     </nav>

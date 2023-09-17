@@ -97,10 +97,23 @@ export default function Navigation2() {
         <motion.div variants={linkVariants}>
           <Link href="/shop">Boutique</Link>
         </motion.div>
-        <motion.div variants={linkVariants}>
-          {!userIsAuthenticated && <Link href="/login">Connexion</Link>}
-          {userIsAuthenticated && <Link href="/dashboard">Dashboard</Link>}
-        </motion.div>
+        {!userIsAuthenticated && (
+          <motion.div variants={linkVariants}>
+            <Link href="/login">Connexion</Link>
+          </motion.div>
+        )}
+        {userIsAuthenticated && (
+          <>
+            <motion.div variants={linkVariants}>
+              <Link href="/dashboard">Dashboard</Link>
+            </motion.div>
+            <motion.div variants={linkVariants}>
+              <a onClick={handleLogout} href="#">
+                Déconnexion
+              </a>
+            </motion.div>
+          </>
+        )}
       </motion.div>
     </nav>
   );
