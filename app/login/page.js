@@ -1,17 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/authenticate/authenticate.module.scss";
 import Link from "next/link";
 import Navigation2 from "@components/Navigation2";
 import Footer from "@components/Footer";
 import Image from "next/image";
 import profilePic from "../../public/images/herbe.png";
-import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
+  //TODO: message si erreur mdp ou mail
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,7 +21,6 @@ export default function Login() {
       username: username,
       password: password,
     };
-
     try {
       const res = await fetch("http://127.0.0.1:8080/api/login_check", {
         method: "POST",
@@ -35,6 +36,9 @@ export default function Login() {
         console.log("token", data.token);
         document.cookie = `jwtToken=${data.token};secure; max-age=36000`;
         console.log("cookie", document.cookie);
+
+        // Redirection vers la page dashboard
+        router.push("/dashboard");
       } else {
         // Gérer les erreurs si nécessaire
         console.error("Erreur lors de la connexion");
