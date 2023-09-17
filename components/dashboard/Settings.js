@@ -17,6 +17,7 @@ import CustomButton
     from "@components/dashboard/utils/CustomButton";
 import AddElectrovalveForm
     from "@components/dashboard/Forms/AddElectroValveForm";
+import Cookies from "js-cookie";
 
 export default function Settings() {
     const [electrovalves, setElectrovalves] = useState([]);
@@ -24,19 +25,23 @@ export default function Settings() {
     const [selectedElectrovalve, setSelectedElectrovalve] = useState(null);
     const [modalAction, setModalAction] = useState(null);
 
-
     useEffect(() => {
-        const fetchData = async () => {
+        async function fetchData() {
+
             try {
-                const data = await getElectrovalve();
-                console.log(data);
+                console.log("cookie", document.cookie);
+                let token = Cookies.get('jwtToken');
+                console.log("token", token)
+                const data = await getElectrovalve(token);
                 setElectrovalves(data['hydra:member']);
-            } catch (err) {
-                console.log("Erreur lors de la récupération des données:", err);
+                console.log("data",data['hydra:member'])
+            } catch (error) {
+                console.log(error);
             }
-        };
+        }
         fetchData();
     }, []);
+
     const openElectrovalveSettings = (electrovalveId, electrovalveName) => {
         setModalIsOpen(true);
         setSelectedElectrovalve({"name": electrovalveName, "id": electrovalveId});
@@ -94,7 +99,6 @@ export default function Settings() {
                     </motion.div>
                 )}
             </AnimatePresence>
-
         </div>
     );
 }
