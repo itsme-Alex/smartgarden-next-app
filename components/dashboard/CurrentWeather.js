@@ -24,9 +24,9 @@ export default function CurrentWeather() {
             <div
                 className={styles.container}
                 style={{backgroundImage: `url(http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png)`,
-                     width: '100%',
-                     height: '300px',
-                     backgroundSize: 'cover'}}>
+                    width: '100%',
+                    height: '300px',
+                    backgroundSize: 'cover'}}>
                 <p className={styles.temp}>{weather.main.temp} °C</p>
                 <p className={styles.cityName}>{weather.name}</p>
             </div>

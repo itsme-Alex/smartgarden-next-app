@@ -18,6 +18,7 @@ export default function Register() {
       email: email,
       password: password,
     };
+    // TODO : ajouter la ville et coordonnées GPS
     //TODO:ajouter les password requirements
     //TODO: se connecter automatiquement apres l'inscription
     try {

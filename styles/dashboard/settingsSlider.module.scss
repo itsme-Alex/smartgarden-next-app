@@ -1,0 +1,42 @@
+.container {
+  width: 80%;
+  height: 400px;
+  margin: 0 auto;
+  border: solid 2px rgba(144, 194, 0, 1);
+  border-radius: 14px;
+  color: rgba(111, 165, 217, 1);
+}
+
+.header {
+  background-color: rgba(144, 194, 0, 1);
+  border-radius:  12px 12px 0 0;
+  padding : 10px 0;
+  color: white;
+}
+
+.sliderContainer {
+  margin: 0 auto;
+  display: flex;
+  width: 70%;
+}
+
+.slider {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-size: 1rem;
+  margin: 0 auto;
+  text-align: left;
+  padding: 10% 0 5% 15%;
+}
+
+.inputValue {
+  width: 20%;
+  margin-left: 15px;
+}
