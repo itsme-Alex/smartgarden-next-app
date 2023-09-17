@@ -8,24 +8,20 @@ import Cookies from "js-cookie";
 import Navigation from "@components/Navigation";
 
 export default function Dashboard() {
-
-    return (
-        <div
-            className={styles.page}>
-            <div
-                className={styles.pageHeader}>
-                <h1>waterpilot</h1>
-            </div>
-            <div
-                className={styles.mainContainer}>
-                <CurrentWeather/>
-            </div>
-            <div className={styles.mainContainer}>
-                <Forecast/>
-            </div>
-            <div className={styles.mainContainer}>
-                <Settings/>
-            </div>
+  return (
+    <div className={styles.page}>
+      <div className={styles.pageHeader}>
+        <h1>waterpilot</h1>
+      </div>
+      <div className={styles.mainContainer}>
+        <CurrentWeather />
+      </div>
+      <div className={styles.mainContainer}>
+        <Forecast />
+      </div>
+      <div className={styles.mainContainer}>
+        <Settings />
+      </div>
     </div>
   );
 }
