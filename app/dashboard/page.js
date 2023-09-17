@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "@/styles/dashboard/page.module.scss";
-// import CurrentWeather from "@/components/dashboard/CurrentWeather";
-// import Forecast from "@/components/dashboard/Forecast";
-// import Settings from "@/components/dashboard/Settings";
+import CurrentWeather from "@/components/dashboard/CurrentWeather";
+import Forecast from "@/components/dashboard/Forecast";
+import Settings from "@/components/dashboard/Settings";
 import Cookies from "js-cookie";
 import Navigation from "@components/Navigation";
 
@@ -25,7 +25,7 @@ export default function Dashboard() {
             </div>
             <div className={styles.mainContainer}>
                 <Settings/>
-            </div> */}
+            </div>
     </div>
   );
 }
