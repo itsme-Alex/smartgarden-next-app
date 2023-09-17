@@ -1,6 +1,6 @@
 // apiActions.js
-const API_URL = `http://162.19.92.61:3002/electrovalve`;
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg4MzcyOTcwLCJleHAiOjE2ODkyMzY5NzB9.1VXX8bQfE5DqR5MyS3kIo3sBVesGkqmMm673-ZwNpNk";
+const API_URL = `http://127.0.0.1:8080/api/electrovalves`;
+const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTM5NDcxMTYsImV4cCI6MTY5NDMwNzExNiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYWxleEBleGFtcGxlLmNvbSJ9.a_Qwzjj067v46wzdPe1Iliqr34g5tjRqy22BzhpCQPVySWGIts_XQN5yo7ET43eOpx5VsdiO8FyHk3zNH7N4WkDaYS09bKmlFlJGbuVaRBbtJPsShYCCswJem6gTrB6mEGy5VrtIjd1gZ2cgIj2lFyhSpb1jSFnVqGuJDX_TYm9nQ6cebbPPhD4ceyiZhe0Rur6xC_5s0MeumV4n089vVnzN9apwyFQviSR5mYC09WlCWd3fzlLMZD94Pl6zMpQoyUD3BcLX_Tnc3vSkR9A5k-hwasxbuM8JL54KmGi9vEQAomxdGlcBGeTslJ3o97I_1SIBoq-1GgGxTcksK8fthA";
 
 export const getElectrovalve = async () => {
     try {
@@ -11,6 +11,7 @@ export const getElectrovalve = async () => {
                 Authorization: "Bearer " + token
             }
         });
+        console.log(res)
         return await res.json();
     } catch (err) {
         console.log(err);

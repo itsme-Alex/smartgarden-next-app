@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 export default function Dashboard() {
 //   const [electrovalves, setElectrovalves] = useState(null);
 
-  useEffect(() => {
+/*  useEffect(() => {
     async function fetchData() {
 
       try {
@@ -29,7 +29,7 @@ export default function Dashboard() {
     }
 
     fetchData();
-  }, []);
+  }, []);*/
   return (
     <div className={styles.page}>
       <div className={styles.pageHeader}>
@@ -44,9 +44,9 @@ export default function Dashboard() {
             <div className={styles.mainContainer}>
                 <Settings/>
             </div>
-            <div className={styles.mainContainer}>
+{/*            <div className={styles.mainContainer}>
                 <IrrigationsHistory/>
-            </div>
+            </div>*/}
         </div>
     )
 }

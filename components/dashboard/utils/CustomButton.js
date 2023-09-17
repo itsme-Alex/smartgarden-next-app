@@ -1,7 +1,7 @@
 // CustomButton.js
 
 import React from 'react';
-import styles from './CustomButton.module.scss'; // Si vous utilisez SCSS modules
+import styles from '@/styles/common/CustomButton.module.scss'; // Si vous utilisez SCSS modules
 
 const CustomButton = ({ text, onClick, ...props }) => {
     return (

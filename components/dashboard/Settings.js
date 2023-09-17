@@ -29,7 +29,8 @@ export default function Settings() {
         const fetchData = async () => {
             try {
                 const data = await getElectrovalve();
-                setElectrovalves(data);
+                console.log(data);
+                setElectrovalves(data['hydra:member']);
             } catch (err) {
                 console.log("Erreur lors de la récupération des données:", err);
             }
