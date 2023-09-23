@@ -30,28 +30,34 @@ export default function ForeCasts() {
     forecast.list
       .filter((item) => item.dt_txt.includes("12:00:00"))
       .slice(0, 5);
-  // .map((item) => {
-  //   const dateParts = item.dt_txt.split(" ")[0].split("-"); // ["2023", "09", "18"]
-  //   const formattedDate = `${dateParts[2]}/${dateParts[1]}`;
-  //item.dt_txt = formattedDate; // "18/09"
-  //});
 
+  console.log("filteredForecast", filteredForecast);
+  filteredForecast?.length > 0 &&
+    filteredForecast.forEach((item) => {
+      const date = new Date(item.dt_txt);
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois sont indexés à partir de 0
+      item.dt_txt = `${day}-${month}`;
+    });
   return (
     <div className={styles.container}>
-      {filteredForecast &&
-        filteredForecast.map((item, index) => (
-          <div key={index} className={styles.forecast}>
-            <p className={styles.date}>{item.dt_txt}</p>
-            <Image
-              src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@4x.png`}
-              alt="weather icon"
-              width={100}
-              height={100}
-              className={styles.forecastIcon}
-            />
-            <p className={styles.temp}>{item.main.temp}°C</p>
-          </div>
-        ))}
+      <h2>Prévision sur 5 jours</h2>
+      <div className={styles.forecastContainer}>
+        {filteredForecast &&
+          filteredForecast.map((item, index) => (
+            <div key={index} className={styles.forecast}>
+              <p className={styles.date}>{item.dt_txt}</p>
+              <Image
+                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@4x.png`}
+                alt="weather icon"
+                width={100}
+                height={100}
+                className={styles.forecastIcon}
+              />
+              <p className={styles.temp}>{item.main.temp}°C</p>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }
