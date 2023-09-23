@@ -1,19 +1,30 @@
+.container {
+  width: 90%;
+  height: 95%;
+  margin: auto auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
 .temp {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
 }
 .cityName {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   color: #676d79;
-  font-weight: 200;
+  font-family: "Poppins-Regular";
 }
 
-.container {
-  margin: 0;
-  padding: 20px;
-}
 .icone {
-  text-align: center;
+  align-self: center;
+  position: absolute;
+  top: 48px;
 }
 .humidity {
   display: flex;
+  margin-top: auto;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-family: "Poppins-Regular";
+  color: #ffffff;
 }

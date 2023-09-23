@@ -26,26 +26,26 @@ export default function CurrentWeather() {
   if (!weather) return <div>Loading...</div>; // Afficher un indicateur de chargement tant que les données ne sont pas chargées
 
   return (
-    <>
+    <div className={styles.container}>
       <p className={styles.temp}>{Math.round(weather.main.temp)} °C</p>
       <p className={styles.cityName}>{weather.name}</p>
       <Image
         className={styles.icone}
         src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
         alt="weather icon"
-        width={100}
-        height={100}
+        width={200}
+        height={200}
       />
       <div className={styles.humidity}>
         <Image
-          src={`/public/images/icones/icons8-humidity-32.png`}
+          src={`/images/icones/icons8-humidity-32.png`}
           alt="humidity icon"
-          width={20}
-          height={20}
+          width={30}
+          height={30}
         />
         <p>Humidité du sol</p>
         <p>25%</p>
       </div>
-    </>
+    </div>
   );
 }

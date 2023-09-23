@@ -38,6 +38,7 @@ export default function ForeCasts() {
       const day = String(date.getDate()).padStart(2, "0");
       const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois sont indexés à partir de 0
       item.dt_txt = `${day}-${month}`;
+      item.main.temp = Math.round(item.main.temp);
     });
   return (
     <div className={styles.container}>
@@ -50,8 +51,8 @@ export default function ForeCasts() {
               <Image
                 src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@4x.png`}
                 alt="weather icon"
-                width={100}
-                height={100}
+                width={60}
+                height={60}
                 className={styles.forecastIcon}
               />
               <p className={styles.temp}>{item.main.temp}°C</p>
