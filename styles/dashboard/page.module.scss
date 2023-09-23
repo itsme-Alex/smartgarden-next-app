@@ -23,6 +23,7 @@
   gap: 1em;
 }
 .higherCard {
+  overflow: hidden;
   grid-row: span 2;
   margin-bottom: 20px;
   padding: 10px;
