@@ -1,160 +1,158 @@
 .navbar {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px;
-    z-index: 10000;
-    background: rgba(255, 255, 255, 0.9);
-    transition: background 0.5s ease-in-out;
+  grid-area: nav;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  z-index: 10000;
+  background: rgba(255, 255, 255, 0.9);
+  transition: background 0.5s ease-in-out;
 
-    &:hover {
-        color: #000000;
-        background-color: rgba(255, 255, 255, 0.9);
+  &:hover {
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.9);
 
-        .hamburgerMenu div {
-            background: #000000;
-        }
+    .hamburgerMenu div {
+      background: #000000;
     }
+  }
 }
 
 .navbar .hamburgerMenu {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
-    z-index: 10000000;
-        
-    div {
-        width: 2rem;
-        height: 0.25rem;
-        background: #ffffff;
-        border-radius: 10px;
-    }
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  z-index: 10000000;
 
-    &:hover div {
-        background: rgb(113, 163, 52);;
-    }
+  div {
+    width: 2rem;
+    height: 0.25rem;
+    background: #ffffff;
+    border-radius: 10px;
+  }
+
+  &:hover div {
+    background: rgb(113, 163, 52);
+  }
 }
 
 .navbar.transparent {
-    background: transparent;
+  background: transparent;
 }
 
 .navbar:hover {
-    color: #000000;
-    background-color: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .navLeft {
-    font-size: 20px;
-    font-weight: bold;
-    transition: 0.2s;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0.2s;
 
-    &:hover {
-        color: rgb(113, 163, 52);
-    }
+  &:hover {
+    color: rgb(113, 163, 52);
+  }
 }
 
 .navRight a {
-    margin-left: 30px;
-    text-decoration: none;
-    color: inherit;
-    font-size: 15px;
-    transition: 0.2s;
-  
-    &:hover {
-        color: rgb(113, 163, 52);
-    }
+  margin-left: 30px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 15px;
+  transition: 0.2s;
+
+  &:hover {
+    color: rgb(113, 163, 52);
+  }
 }
 
 .navRight a.linkScrolled {
-    color: #000000;
+  color: #000000;
 
-    &:hover {
-        color: rgb(113, 163, 52);
-    }
+  &:hover {
+    color: rgb(113, 163, 52);
+  }
 }
 
 .linkScrolled {
-    color: #000000;
+  color: #000000;
 
-    &:hover {
-        color: rgb(113, 163, 52);
-    }
+  &:hover {
+    color: rgb(113, 163, 52);
+  }
 }
 
 .navbar .hamburgerMenu div.burgerScrolled {
-    background-color: #000000;
+  background-color: #000000;
 }
 
 .menuMobile {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 70%;
-    height: 100vh;
-    background: #000000;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: left;
-    padding: 0 30px;
-    box-sizing: border-box;
-    z-index: 10000;
-    transition: 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100vh;
+  background: #000000;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  padding: 0 30px;
+  box-sizing: border-box;
+  z-index: 10000;
+  transition: 0.3s ease-in-out;
 }
 
 .menuMobile a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 20px;
-    margin-bottom: 20px;
-    display: none; 
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  margin-bottom: 20px;
+  display: none;
 
-    &:hover {
-        color: rgb(113, 163, 52);
-    }
+  &:hover {
+    color: rgb(113, 163, 52);
+  }
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    &:hover {
+      color: #000000;
+      background-color: #ffffff;
 
-    .navbar {
-    
-        &:hover {
-            color: #000000;
-            background-color: #ffffff;
-    
-            .hamburgerMenu div {
-                background: #000000;
-            }
-        }
+      .hamburgerMenu div {
+        background: #000000;
+      }
     }
-    
-    .navbar .hamburgerMenu {
-    
-        &:hover div {
-            background: rgb(113, 163, 52);;
-        }
-    }
+  }
 
-    .navbar .navRight {
-        display: none;
+  .navbar .hamburgerMenu {
+    &:hover div {
+      background: rgb(113, 163, 52);
     }
+  }
 
-    .navbar .hamburgerMenu {
-        display: flex;
-    }
+  .navbar .navRight {
+    display: none;
+  }
 
-    .menuMobile {
-        display: flex;
-    
-        a {
-            display: block;
-        }
+  .navbar .hamburgerMenu {
+    display: flex;
+  }
+
+  .menuMobile {
+    display: flex;
+
+    a {
+      display: block;
     }
+  }
 }

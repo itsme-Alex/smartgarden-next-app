@@ -4,7 +4,10 @@
 
 @media screen and (min-width: 600px) {
   .sidebar {
+    grid-area: sidebar;
     display: block;
+    position: sticky;
+    top: 0;
     width: 250px;
     height: 100vh;
     background-color: black;
