@@ -1,19 +1,35 @@
-.container{
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.container h2 {
+  margin-bottom: 50px;
+}
+
+.forecastContainer {
   display: flex;
   flex-direction: row;
+  width: 100%;
+}
+.forecast {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.forecast{
-  width: 20%;
-  height: auto;
-}
-
-.forecastIcon{
+.forecastIcon {
+  max-width: 100%;
   max-width: 100%;
 }
 
-.temp{
-  font-size: 0.8rem;
-  font-weight: bold;
+.temp {
+  font-size: 1rem;
   text-align: center;
+  font-family: "Poppins-Regular";
+}
+.date {
+  font-family: "Poppins-Regular";
+  font-size: 0.9rem;
 }

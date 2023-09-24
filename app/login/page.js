@@ -22,7 +22,7 @@ export default function Login() {
       password: password,
     };
     try {
-      const res = await fetch("http://127.0.0.1:8080/api/login_check", {
+      const res = await fetch("/api/login_check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,11 +34,11 @@ export default function Login() {
         const data = await res.json();
 
         console.log("token", data.token);
-        document.cookie = `jwtToken=${data.token};secure; max-age=36000`;
-        console.log("cookie", document.cookie);
+        // document.cookie = `jwtToken=${data.token};secure; max-age=36000`;
+        // console.log("cookie", document.cookie);
 
         // Redirection vers la page dashboard
-        router.push("/dashboard");
+        //router.push("/dashboard");
       } else {
         // Gérer les erreurs si nécessaire
         console.error("Erreur lors de la connexion");

@@ -8,15 +8,17 @@ const getCookieValue = (name) => {
 
 // Vérifiez la validité du JWT
 export const isJwtValid = () => {
-  const token = getCookieValue("jwtToken");
-  if (!token) return false;
+  // const token = getCookieValue("jwtToken");
+  // if (!token) return false;
 
-  try {
-    const decodedToken = jwt.decode(token);
-    const currentTime = Date.now() / 1000;
+  // try {
+  //   const decodedToken = jwt.decode(token);
+  //   const currentTime = Date.now() / 1000;
 
-    return decodedToken && decodedToken.exp > currentTime;
-  } catch {
-    return false;
-  }
+  //   return decodedToken && decodedToken.exp > currentTime;
+  // } catch {
+  //   return false;
+  // }
+  return false;
 };
+//TODO: faire une route api pour vérifier si je suis connecté
