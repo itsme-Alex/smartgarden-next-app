@@ -35,29 +35,23 @@ const linkVariants = {
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isTop, setIsTop] = useState(true);
+  const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
+  const router = useRouter();
 
   const scrollListener = useCallback(() => {
     const isTop = window.scrollY <= 50;
     setIsTop(isTop);
   }, []);
 
-  const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
-  const router = useRouter();
-
   useEffect(() => {
     const isConnected = async () => {
       const isValid = await isJwtValid();
       setUserIsAuthenticated(isValid);
+      if (!isValid) router.push("/");
     };
     isConnected();
-  }, []);
-
-  useEffect(() => {
-    if (!userIsAuthenticated) {
-      router.push("/");
-    }
     //eslint-disable-next-line
-  }, [userIsAuthenticated]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", scrollListener);
