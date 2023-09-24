@@ -24,10 +24,8 @@ export default function Settings() {
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log("cookie", document.cookie);
-        let token = Cookies.get("jwtToken");
-        console.log("token", token);
-        const data = await getElectrovalve(token);
+        const data = await getElectrovalve();
+        console.log("data", data);
         setElectrovalves(data["hydra:member"]);
         console.log("data", data["hydra:member"]);
       } catch (error) {

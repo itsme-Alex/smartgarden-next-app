@@ -1,17 +1,15 @@
 // apiActions.js
 const API_URL = `/api/electrovalves`;
 
-export const getElectrovalve = async (token) => {
+export const getElectrovalve = async () => {
   try {
     const apiRes = await fetch(API_URL, {
       method: "GET",
     });
 
     if (!apiRes.ok) {
-      console.log(apiRes);
       throw new Error(`HTTP error! status: ${apiRes.status}`);
     }
-
     return await apiRes.json();
   } catch (err) {
     console.log(err);
