@@ -16,19 +16,23 @@ const apiProxy = (req, res) => {
   const myURL = new URL(req.url, "http://example.com"); //  fournir une base si req.url est un chemin relatif
   const pathname = myURL.pathname;
   const isConnectedPath = pathname === "/api/isConnected";
+  const isLogoutPath = pathname === "/api/logout";
 
   if (isConnectedPath) {
-    console.log("isConnectedPath");
     const cookies = new Cookies(req, res);
     const token = cookies.get("BEARER");
-    console.log("token", token);
-
     const decodedToken = jwt.decode(token);
     const currentTime = Date.now() / 1000;
 
     decodedToken && decodedToken.exp > currentTime
       ? res.status(200).send("Valid token")
       : res.status(401).send("Invalid token");
+  }
+
+  if (isLogoutPath) {
+    const cookies = new Cookies(req, res);
+    cookies.set("BEARER", "", { expires: new Date(0) }); // Effacer le cookie
+    res.status(200).send("Logged out successfully");
   }
 
   return new Promise((resolve, reject) => {

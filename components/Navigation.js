@@ -47,12 +47,17 @@ export default function Navigation() {
   useEffect(() => {
     const isConnected = async () => {
       const isValid = await isJwtValid();
-      console.log("isValid", isValid);
       setUserIsAuthenticated(isValid);
     };
-
     isConnected();
   }, []);
+
+  useEffect(() => {
+    if (!userIsAuthenticated) {
+      router.push("/");
+    }
+    //eslint-disable-next-line
+  }, [userIsAuthenticated]);
 
   useEffect(() => {
     window.addEventListener("scroll", scrollListener);
@@ -63,9 +68,14 @@ export default function Navigation() {
   }, [scrollListener]);
 
   const handleLogout = () => {
-    // Supprimez le cookie JWT. La façon exacte de le faire dépend de la manière dont vous avez configuré vos cookies.
-    document.cookie = "jwtToken=; Max-Age=0; path=/; secure";
-    setUserIsAuthenticated(false);
+    const isLogout = async () => {
+      const res = await fetch("/api/logout");
+      console.log("logout", res);
+      if (res.ok) {
+        setUserIsAuthenticated(false);
+      }
+    };
+    isLogout();
     router.push("/");
   };
 
