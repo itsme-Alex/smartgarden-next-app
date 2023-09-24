@@ -45,7 +45,13 @@ export default function Navigation() {
   const router = useRouter();
 
   useEffect(() => {
-    setUserIsAuthenticated(isJwtValid());
+    const isConnected = async () => {
+      const isValid = await isJwtValid();
+      console.log("isValid", isValid);
+      setUserIsAuthenticated(isValid);
+    };
+
+    isConnected();
   }, []);
 
   useEffect(() => {

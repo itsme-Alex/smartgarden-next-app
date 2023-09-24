@@ -11,8 +11,10 @@ export default function Shop() {
         <div className={styles.container}>
           <Image
             src="/images/WaterPilot.png"
-            className={styles.image}
             alt="image du waterpilot"
+            className={styles.image}
+            width={500}
+            height={500}
           />
           <div className={styles.details}>
             <h2 className={styles.title}>Water Pilot 2023</h2>

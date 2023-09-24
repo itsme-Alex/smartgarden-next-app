@@ -7,18 +7,13 @@ const getCookieValue = (name) => {
 };
 
 // Vérifiez la validité du JWT
-export const isJwtValid = () => {
-  // const token = getCookieValue("jwtToken");
-  // if (!token) return false;
+export const isJwtValid = async () => {
+  const isConnected = await fetch("/api/isConnected");
 
-  // try {
-  //   const decodedToken = jwt.decode(token);
-  //   const currentTime = Date.now() / 1000;
-
-  //   return decodedToken && decodedToken.exp > currentTime;
-  // } catch {
-  //   return false;
-  // }
-  return false;
+  if (isConnected.ok) {
+    return true;
+  } else {
+    return false;
+  }
 };
 //TODO: faire une route api pour vérifier si je suis connecté
