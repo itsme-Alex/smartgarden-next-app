@@ -13,13 +13,14 @@ import SettingsSlider from "@/components/dashboard/utils/SettingsSlider";
 import { getElectrovalve } from "@utils/data-fetcher";
 import CustomButton from "@components/dashboard/utils/CustomButton";
 import AddElectrovalveForm from "@components/dashboard/Forms/AddElectroValveForm";
-import Cookies from "js-cookie";
+import { useConnected } from "@context/ConnectedContext";
 
 export default function Settings() {
   const [electrovalves, setElectrovalves] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedElectrovalve, setSelectedElectrovalve] = useState(null);
   const [modalAction, setModalAction] = useState(null);
+  const { updateConnection } = useConnected();
 
   useEffect(() => {
     async function fetchData() {
@@ -29,10 +30,12 @@ export default function Settings() {
         setElectrovalves(data["hydra:member"]);
         console.log("data", data["hydra:member"]);
       } catch (error) {
-        console.log(error);
+        if (error === 401) updateConnection(false);
       }
     }
     fetchData();
+
+    //eslint-disable-next-line
   }, []);
 
   const openElectrovalveSettings = (electrovalveId, electrovalveName) => {

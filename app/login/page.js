@@ -7,11 +7,13 @@ import Footer from "@components/Footer";
 import Image from "next/image";
 import profilePic from "../../public/images/herbe.png";
 import { useRouter } from "next/navigation";
+import { useConnected } from "@context/ConnectedContext";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { state, checkConnection, updateConnection } = useConnected();
 
   //TODO: message si erreur mdp ou mail
   const handleSubmit = async (e) => {
@@ -30,16 +32,13 @@ export default function Login() {
         body: JSON.stringify(body),
       });
 
-      if (res.status === 200) {
-        const data = await res.json();
-
-        console.log("token", data.token);
-        // document.cookie = `jwtToken=${data.token};secure; max-age=36000`;
-        // console.log("cookie", document.cookie);
-
+      if (res.ok) {
+        // const data = await res.json();
+        updateConnection(true);
         // Redirection vers la page dashboard
-        //router.push("/dashboard");
+        router.push("/dashboard");
       } else {
+        console.log("res.status", res.ok);
         // Gérer les erreurs si nécessaire
         console.error("Erreur lors de la connexion");
       }

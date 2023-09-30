@@ -4,8 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import styles from "../styles/navigation.module.scss";
 import { motion } from "framer-motion";
-import { isJwtValid } from "@/utils/isconnected";
 import { useRouter } from "next/navigation";
+import { useConnected } from "@context/ConnectedContext";
 
 const topVariants = {
   closed: { rotate: 0, translateY: 0 },
@@ -35,22 +35,12 @@ const linkVariants = {
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isTop, setIsTop] = useState(true);
-  const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
   const router = useRouter();
+  const { state, checkConnection, updateConnection } = useConnected();
 
   const scrollListener = useCallback(() => {
     const isTop = window.scrollY <= 50;
     setIsTop(isTop);
-  }, []);
-
-  useEffect(() => {
-    const isConnected = async () => {
-      const isValid = await isJwtValid();
-      setUserIsAuthenticated(isValid);
-      if (!isValid) router.push("/");
-    };
-    isConnected();
-    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -64,9 +54,8 @@ export default function Navigation() {
   const handleLogout = () => {
     const isLogout = async () => {
       const res = await fetch("/api/logout");
-      console.log("logout", res);
       if (res.ok) {
-        setUserIsAuthenticated(false);
+        updateConnection(false);
       }
     };
     isLogout();
@@ -104,7 +93,7 @@ export default function Navigation() {
         >
           Boutique
         </Link>
-        {!userIsAuthenticated && (
+        {!state.isConnected && (
           <Link
             className={isTop ? styles.linkTop : styles.linkScrolled}
             href="/login"
@@ -112,7 +101,7 @@ export default function Navigation() {
             Connexion
           </Link>
         )}
-        {userIsAuthenticated && (
+        {state.isConnected && (
           <>
             <Link
               className={isTop ? styles.linkTop : styles.linkScrolled}
@@ -171,12 +160,12 @@ export default function Navigation() {
         <motion.div variants={linkVariants}>
           <Link href="/shop">Boutique</Link>
         </motion.div>
-        {!userIsAuthenticated && (
+        {!state.isConnected && (
           <motion.div variants={linkVariants}>
             <Link href="/login">Connexion</Link>
           </motion.div>
         )}
-        {userIsAuthenticated && (
+        {state.isConnected && (
           <>
             <motion.div variants={linkVariants}>
               <Link href="/dashboard">Dashboard</Link>
