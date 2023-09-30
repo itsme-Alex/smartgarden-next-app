@@ -10,6 +10,13 @@ import profilePic from "../../public/images/herbe.png";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordValidations, setPasswordValidations] = useState({
+    minLength: false,
+    upperCase: false,
+    lowerCase: false,
+    number: false,
+    specialChar: false,
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +26,6 @@ export default function Register() {
       password: password,
     };
     // TODO : ajouter la ville et coordonnées GPS
-    //TODO:ajouter les password requirements
     //TODO: se connecter automatiquement apres l'inscription
     try {
       const res = await fetch("http://127.0.0.1:8080/api/users", {
@@ -39,9 +45,22 @@ export default function Register() {
     }
   };
 
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(e.target.value);
+
+    setPasswordValidations({
+      minLength: value.length >= 15,
+      upperCase: /[A-Z]/.test(value),
+      lowerCase: /[a-z]/.test(value),
+      number: /\d/.test(value),
+      specialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(value),
+    });
+  };
+
   return (
     <div>
-      {/* <Navigation2 /> */}
+      <Navigation2 />
       <div className={styles.container}>
         <Image src={profilePic} alt="grass pictures" className={styles.image} />
         <div>
@@ -65,8 +84,38 @@ export default function Register() {
                 className={styles.input}
                 placeholder="Mot de passe"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handlePasswordChange}
               />
+              <ul className={styles.passwordRequirements}>
+                <li
+                  className={passwordValidations.minLength ? styles.valid : ""}
+                >
+                  15 caractères
+                </li>
+                <li
+                  className={passwordValidations.upperCase ? styles.valid : ""}
+                >
+                  1 majuscule
+                </li>
+                <li
+                  className={passwordValidations.lowerCase ? styles.valid : ""}
+                >
+                  1 minuscule
+                </li>
+                <li className={passwordValidations.number ? styles.valid : ""}>
+                  1 chiffre
+                </li>
+                <li
+                  className={
+                    passwordValidations.specialChar ? styles.valid : ""
+                  }
+                >
+                  1 caractère spécial
+                </li>
+              </ul>
+            </div>
+            <div className={styles.inputGroup}>
+              <input type="text" className={styles.input} placeholder="Ville" />
             </div>
             <button type="submit" className={styles.button}>
               S'inscrire
