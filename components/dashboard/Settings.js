@@ -26,9 +26,7 @@ export default function Settings() {
     async function fetchData() {
       try {
         const data = await getElectrovalve();
-        console.log("data", data);
         setElectrovalves(data["hydra:member"]);
-        console.log("data", data["hydra:member"]);
       } catch (error) {
         if (error === 401) updateConnection(false);
       }
@@ -38,9 +36,9 @@ export default function Settings() {
     //eslint-disable-next-line
   }, []);
 
-  const openElectrovalveSettings = (electrovalveId, electrovalveName) => {
+  const openElectrovalveSettings = (electrovalveName, valveSettings) => {
     setModalIsOpen(true);
-    setSelectedElectrovalve({ name: electrovalveName, id: electrovalveId });
+    setSelectedElectrovalve({ name: electrovalveName, settings: valveSettings, id: valveSettings['@id'].split('/').pop() });
     setModalAction("settingsSlider");
   };
 
@@ -71,7 +69,7 @@ export default function Settings() {
                 <SettingsButton
                   icon={faSliders}
                   onClick={() =>
-                    openElectrovalveSettings(electrovalve.id, electrovalve.name)
+                    openElectrovalveSettings(electrovalve.name, electrovalve.valveSettings)
                   }
                 />
               </motion.div>
