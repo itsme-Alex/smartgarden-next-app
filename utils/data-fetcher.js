@@ -14,11 +14,10 @@ export const getElectrovalve = async () => {
     });
 
     if (!apiRes.ok) {
-      throw new Error(`HTTP error! status: ${apiRes.status}`);
+      throw new Error(`${apiRes.status}`);
     }
     return await apiRes.json();
   } catch (err) {
-    console.log(err);
     throw err; // Propagez l'erreur pour pouvoir la gérer dans le composant.
   }
 };

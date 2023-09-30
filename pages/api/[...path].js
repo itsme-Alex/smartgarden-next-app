@@ -12,7 +12,7 @@ export const config = {
   },
 };
 
-const apiProxy = (req, res) => {
+const apiProxy = async (req, res) => {
   const myURL = new URL(req.url, "http://example.com"); //  fournir une base si req.url est un chemin relatif
   const pathname = myURL.pathname;
   const isConnectedPath = pathname === "/api/isConnected";

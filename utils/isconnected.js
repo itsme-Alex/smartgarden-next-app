@@ -1,5 +1,3 @@
-import jwt from "jsonwebtoken";
-
 // Obtenez le token JWT depuis le cookie
 const getCookieValue = (name) => {
   const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
@@ -8,12 +6,15 @@ const getCookieValue = (name) => {
 
 // Vérifiez la validité du JWT
 export const isJwtValid = async () => {
-  const isConnected = await fetch("/api/isConnected");
-
-  if (isConnected.ok) {
-    return true;
-  } else {
+  try {
+    const isConnected = await fetch("/api/isConnected");
+    if (isConnected.ok) {
+      return true;
+    } else {
+      throw new Error("JWT non valide ou expiré");
+    }
+  } catch (error) {
+    console.log("non connecté");
     return false;
   }
 };
-//TODO: faire une route api pour vérifier si je suis connecté
