@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import styles from "../styles/navigation2.module.scss";
 import { motion } from "framer-motion";
-import { isJwtValid } from "@utils/isconnected";
 import { useRouter } from "next/navigation";
+import { useConnected } from "@context/ConnectedContext";
 
 const topVariants = {
   closed: { rotate: 0, translateY: 0 },
@@ -34,28 +34,14 @@ const linkVariants = {
 
 export default function Navigation2() {
   const [isOpen, setIsOpen] = useState(false);
-  const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    const isConnected = async () => {
-      const isValid = await isJwtValid();
-      setUserIsAuthenticated(isValid);
-    };
-
-    isConnected();
-  }, []);
-
-  useEffect(() => {
-    console.log("userIsAuthenticated", userIsAuthenticated);
-  }, [userIsAuthenticated]);
+  const { state, updateConnection } = useConnected();
 
   const handleLogout = () => {
     const isLogout = async () => {
       const res = await fetch("/api/logout");
-      console.log("logout", res);
       if (res.ok) {
-        setUserIsAuthenticated(false);
+        updateConnection(false);
       }
     };
     isLogout();
@@ -70,7 +56,7 @@ export default function Navigation2() {
       <div className={styles.navRight2}>
         <Link href="/">Accueil</Link>
         <Link href="/shop">Boutique</Link>
-        {userIsAuthenticated && (
+        {state.isConnected && (
           <>
             <Link href="/dashboard">Dashboard</Link>
             <a onClick={handleLogout} href="#">
@@ -78,7 +64,7 @@ export default function Navigation2() {
             </a>
           </>
         )}
-        {!userIsAuthenticated && <Link href="/login">Connexion</Link>}
+        {!state.isConnected && <Link href="/login">Connexion</Link>}
       </div>
       <div className={styles.hamburgerMenu} onClick={() => setIsOpen(!isOpen)}>
         <motion.div
@@ -107,12 +93,12 @@ export default function Navigation2() {
         <motion.div variants={linkVariants}>
           <Link href="/shop">Boutique</Link>
         </motion.div>
-        {!userIsAuthenticated && (
+        {!state.isConnected && (
           <motion.div variants={linkVariants}>
             <Link href="/login">Connexion</Link>
           </motion.div>
         )}
-        {userIsAuthenticated && (
+        {state.isConnected && (
           <>
             <motion.div variants={linkVariants}>
               <Link href="/dashboard">Dashboard</Link>
