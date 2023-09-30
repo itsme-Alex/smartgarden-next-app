@@ -13,7 +13,6 @@ import SettingsSlider from "@/components/dashboard/utils/SettingsSlider";
 import { getElectrovalve } from "@utils/data-fetcher";
 import CustomButton from "@components/dashboard/utils/CustomButton";
 import AddElectrovalveForm from "@components/dashboard/Forms/AddElectroValveForm";
-import Cookies from "js-cookie";
 
 export default function Settings() {
   const [electrovalves, setElectrovalves] = useState([]);
@@ -25,9 +24,8 @@ export default function Settings() {
     async function fetchData() {
       try {
         const data = await getElectrovalve();
-        console.log("data", data);
         setElectrovalves(data["hydra:member"]);
-        console.log("data", data["hydra:member"]);
+        console.log(data["hydra:member"])
       } catch (error) {
         console.log(error);
       }
@@ -35,9 +33,9 @@ export default function Settings() {
     fetchData();
   }, []);
 
-  const openElectrovalveSettings = (electrovalveId, electrovalveName) => {
+  const openElectrovalveSettings = (electrovalveName, valveSettings) => {
     setModalIsOpen(true);
-    setSelectedElectrovalve({ name: electrovalveName, id: electrovalveId });
+    setSelectedElectrovalve({ name: electrovalveName, settings: valveSettings, id: valveSettings['@id'].split('/').pop() });
     setModalAction("settingsSlider");
   };
 
@@ -68,7 +66,7 @@ export default function Settings() {
                 <SettingsButton
                   icon={faSliders}
                   onClick={() =>
-                    openElectrovalveSettings(electrovalve.id, electrovalve.name)
+                    openElectrovalveSettings(electrovalve.name, electrovalve.valveSettings)
                   }
                 />
               </motion.div>

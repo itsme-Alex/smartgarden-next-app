@@ -1,7 +1,13 @@
 // apiActions.js
-const API_URL = `/api/electrovalves`;
+const API_ENDPOINTS = {
+  electrovalves: '/api/electrovalves',
+  valveSettings: '/api/valve_settings'
+  // Ajoutez d'autres entités au besoin
+};
+
 
 export const getElectrovalve = async () => {
+  const API_URL = API_ENDPOINTS.electrovalves;
   try {
     const apiRes = await fetch(API_URL, {
       method: "GET",
@@ -16,14 +22,11 @@ export const getElectrovalve = async () => {
     throw err; // Propagez l'erreur pour pouvoir la gérer dans le composant.
   }
 };
-export const addElectrovalve = async (data, token) => {
+export const addElectrovalve = async (data) => {
+  const API_URL = API_ENDPOINTS.electrovalves;
   try {
     const response = await fetch(API_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
       body: JSON.stringify(data),
     });
 
@@ -37,3 +40,46 @@ export const addElectrovalve = async (data, token) => {
     throw error;
   }
 };
+
+
+
+export const getSettings = async (id) => {
+  const API_URL = `${API_ENDPOINTS.valveSettings}/${id}`;
+  try {
+    const apiRes = await fetch(API_URL, {
+      method: "GET",
+    });
+
+    if (!apiRes.ok) {
+      throw new Error(`HTTP error! status: ${apiRes.status}`);
+    }
+    return await apiRes.json();
+  } catch (err) {
+    console.log(err);
+    throw err; // Propagez l'erreur pour pouvoir la gérer dans le composant.
+  }
+};
+
+export const updateSettings = async (id, data) => {
+  const API_URL = API_ENDPOINTS.valveSettings;
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/merge-patch+json'
+      },
+      body: JSON.stringify(data),
+    });
+console.log (response)
+
+    if (!response.ok) {
+      throw new Error("Erreur lors de la mise à jour de l'électrovanne");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de la requête PUT:", error);
+    throw error;
+  }
+};
+

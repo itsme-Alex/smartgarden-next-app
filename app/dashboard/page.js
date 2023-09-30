@@ -4,7 +4,6 @@ import styles from "@/styles/dashboard/page.module.scss";
 import CurrentWeather from "@/components/dashboard/CurrentWeather";
 import Forecast from "@/components/dashboard/Forecast";
 import Settings from "@/components/dashboard/Settings";
-import Cookies from "js-cookie";
 import Navigation from "@components/Navigation";
 import Sidebar from "@components/dashboard/Sidebar";
 
