@@ -16,7 +16,6 @@ import CustomButton
 
 
 export default function SettingsSlider({valve}) {
-    console.log("ici", valve);
     const [settings, setSettings] = useState({
         duration: 0,
         moistureThreshold: 0,
@@ -73,7 +72,6 @@ export default function SettingsSlider({valve}) {
     const handleApplyChanges = async () => {
         try {
             const updatedData = await updateSettings(valve.id, settings);
-            console.log('Données mises à jour avec succès:', updatedData);
         } catch (error) {
             console.error('Erreur:', error);
         }
