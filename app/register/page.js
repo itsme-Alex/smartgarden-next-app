@@ -37,7 +37,7 @@ export default function Register() {
       city: selectedCity.city,
     };
     try {
-      const res = await fetch("http://127.0.0.1:8080/api/users", {
+      const res = await fetch("/api/proxy/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function Register() {
           username: email,
           password: password,
         };
-        const res = await fetch("/api/login_check", {
+        const res = await fetch("/api/proxy/login_check", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

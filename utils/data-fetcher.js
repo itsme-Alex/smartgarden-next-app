@@ -1,7 +1,7 @@
 // apiActions.js
 const API_ENDPOINTS = {
-  electrovalves: '/api/electrovalves',
-  valveSettings: '/api/valve_settings'
+  electrovalves: "/api/proxy/electrovalves",
+  valveSettings: "/api/proxy/valve_settings",
   // Ajoutez d'autres entités au besoin
 };
 
@@ -27,14 +27,16 @@ export const addElectrovalve = async (data) => {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erreur lors de l'ajout de l'électrovanne");
+      throw new Error(
+        errorData.message || "Erreur lors de l'ajout de l'électrovanne"
+      );
     }
     return await response.json();
   } catch (error) {
@@ -51,7 +53,9 @@ export const deleteElectrovalve = async (id) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erreur lors de la suppression de l'électrovalve");
+      throw new Error(
+        errorData.message || "Erreur lors de la suppression de l'électrovalve"
+      );
     }
     return true; // Retournez true pour indiquer que la suppression a réussi.
   } catch (error) {
@@ -66,7 +70,7 @@ export const updateValve = async (id, data) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PATCH",
       headers: {
-        'Content-Type': 'application/merge-patch+json'
+        "Content-Type": "application/merge-patch+json",
       },
       body: JSON.stringify(data),
     });
@@ -105,11 +109,11 @@ export const updateSettings = async (id, data) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PATCH",
       headers: {
-        'Content-Type': 'application/merge-patch+json'
+        "Content-Type": "application/merge-patch+json",
       },
       body: JSON.stringify(data),
     });
-console.log (response)
+    console.log(response);
 
     if (!response.ok) {
       throw new Error("Erreur lors de la mise à jour de l'électrovanne");
@@ -121,4 +125,3 @@ console.log (response)
     throw error;
   }
 };
-
