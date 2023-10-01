@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/authenticate/authenticate.module.scss";
 import Link from "next/link";
 import Navigation2 from "@components/Navigation2";
@@ -17,6 +17,10 @@ export default function Register() {
     number: false,
     specialChar: false,
   });
+  const [city, setCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,6 +61,42 @@ export default function Register() {
       specialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(value),
     });
   };
+
+  const handleCityChange = async (e) => {
+    setCity(e.target.value);
+    setSelectedCity(null);
+    if (e.target.value.length > 2) {
+      // Pour éviter les requêtes sur de très courtes saisies
+      setLoading(true);
+      try {
+        const res = await fetch(
+          `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}`
+        );
+        const response = await res.json();
+        const data = response.features.map((feature) => {
+          return {
+            postcode: feature.properties.postcode,
+            city: feature.properties.city,
+            coordinates: feature.geometry.coordinates,
+          };
+        });
+        setSearchResults(data);
+      } catch (error) {
+        console.error("Erreur lors de la recherche:", error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setSearchResults([]);
+    }
+  };
+  const handleCitySelect = (cityProperties) => {
+    setSelectedCity(cityProperties);
+    setCity(`${cityProperties.postcode} ${cityProperties.city}`);
+  };
+  useEffect(() => {
+    console.log("City selected:", selectedCity);
+  }, [selectedCity]);
 
   return (
     <div>
@@ -125,7 +165,30 @@ export default function Register() {
               </ul>
             </div>
             <div className={styles.inputGroup}>
-              <input type="text" className={styles.input} placeholder="Ville" />
+              <input
+                type="text"
+                className={styles.input}
+                placeholder="Code postale"
+                onChange={handleCityChange}
+                value={city}
+              />
+              {selectedCity === null ? (
+                loading ? (
+                  <div>Chargement...</div>
+                ) : (
+                  <ul className={styles.resultsList}>
+                    {searchResults.map((result, index) => (
+                      <li
+                        key={index}
+                        className={styles.resultItem}
+                        onClick={() => handleCitySelect(result)}
+                      >
+                        {result.postcode} {result.city}
+                      </li>
+                    ))}
+                  </ul>
+                )
+              ) : null}
             </div>
             <button type="submit" className={styles.button}>
               S'inscrire
