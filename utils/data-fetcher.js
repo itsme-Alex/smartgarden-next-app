@@ -22,19 +22,66 @@ export const getElectrovalve = async () => {
 };
 export const addElectrovalve = async (data) => {
   const API_URL = API_ENDPOINTS.electrovalves;
+  console.log("data", data);
   try {
     const response = await fetch(API_URL, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
     });
 
     if (!response.ok) {
-      throw new Error("Erreur lors de l'ajout de l'électrovanne");
+      const errorData = await response.json();
+      throw new Error(
+        errorData.message || "Erreur lors de l'ajout de l'électrovanne"
+      );
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de la requête POST:", error);
+    throw error;
+  }
+};
+export const deleteElectrovalve = async (id) => {
+  const API_URL = `${API_ENDPOINTS.electrovalves}/${id}`;
+  try {
+    const response = await fetch(API_URL, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.message || "Erreur lors de la suppression de l'électrovalve"
+      );
+    }
+    return true; // Retournez true pour indiquer que la suppression a réussi.
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de la requête DELETE:", error);
+    throw error;
+  }
+};
+
+export const updateValve = async (id, data) => {
+  const API_URL = API_ENDPOINTS.electrovalves;
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/merge-patch+json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erreur lors de la mise à jour de l'électrovanne");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Erreur lors de l'envoi de la requête POST:", error);
+    console.error("Erreur lors de l'envoi de la requête PATCH:", error);
     throw error;
   }
 };
@@ -74,7 +121,7 @@ export const updateSettings = async (id, data) => {
 
     return await response.json();
   } catch (error) {
-    console.error("Erreur lors de l'envoi de la requête PUT:", error);
+    console.error("Erreur lors de l'envoi de la requête PATCH:", error);
     throw error;
   }
 };

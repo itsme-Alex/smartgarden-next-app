@@ -10,32 +10,41 @@ import { AnimatePresence, motion } from "framer-motion";
 import SettingsButton from "@/components/dashboard/utils/SettingsButton";
 import Switch from "@/components/dashboard/utils/Switch";
 import SettingsSlider from "@/components/dashboard/utils/SettingsSlider";
-import { getElectrovalve } from "@utils/data-fetcher";
+import {
+  deleteElectrovalve,
+  getElectrovalve,
+  updateSettings
+} from "@utils/data-fetcher";
 import CustomButton from "@components/dashboard/utils/CustomButton";
 import AddElectrovalveForm from "@components/dashboard/Forms/AddElectroValveForm";
 import { useConnected } from "@context/ConnectedContext";
 
 export default function Settings() {
   const [electrovalves, setElectrovalves] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedElectrovalve, setSelectedElectrovalve] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
+  const [updateKey, setUpdateKey] = useState(0);
   const { updateConnection } = useConnected();
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await getElectrovalve();
-        setElectrovalves(data["hydra:member"]);
+        const transformedData = data["hydra:member"].map(electrovalve => ({
+          ...electrovalve,
+          id: electrovalve["@id"].split("/").pop()
+        }));
+        setElectrovalves(transformedData);
       } catch (error) {
         if (error === 401) updateConnection(false);
       }
     }
     fetchData();
-
     //eslint-disable-next-line
-  }, []);
+  },  [updateKey]);
 
+  // fonction qui ouvre le modal de paramétrage d'une électrovalve
   const openElectrovalveSettings = (electrovalveName, valveSettings) => {
     setModalIsOpen(true);
     setSelectedElectrovalve({ name: electrovalveName, settings: valveSettings, id: valveSettings['@id'].split('/').pop() });
@@ -46,9 +55,30 @@ export default function Settings() {
     console.log("Activation de l'arrosage...");
   };
 
+  // fonction qui ouvre le modal d'ajout d'une électrovalve
   const handleAddElectrovalve = () => {
     setModalAction("addElectrovalve");
     setModalIsOpen(true);
+  };
+
+  // fonction qui active le useffect de la page d'accueil pour mettre à jour la liste des électrovalves
+  const handleElectrovalveAdded = () => {
+    setUpdateKey(prevKey => prevKey + 1);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteElectrovalve(id);
+      // Mettre à jour la liste des électrovannes après la suppression
+      setUpdateKey(prevKey => prevKey + 1);
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+    }
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setModalAction(null);
   };
 
   return (
@@ -59,10 +89,13 @@ export default function Settings() {
       ) : (
         electrovalves.map((electrovalve) => (
           <div key={electrovalve.id} className={styles.valveContainer}>
-            <div>
+            <div className={styles.flexContainer}>
               <p>
                 Circuit {electrovalve.position} : {electrovalve.name}
               </p>
+              <div className={styles.deleteButton} onClick={() => handleDelete(electrovalve.id)}>
+                x
+              </div>
             </div>
             <div className={styles.buttonPanel}>
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -79,12 +112,14 @@ export default function Settings() {
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                 <SettingsButton icon={faFaucetDrip} onClick={handleWater} />
               </motion.div>
-              <Switch isAutomatic={electrovalve.isAutomatic} />
+              <Switch isAutomatic={electrovalve.isAutomatic} id={electrovalve.id}/>
             </div>
           </div>
         ))
       )}
-      <CustomButton text="Ajouter" onClick={handleAddElectrovalve} />
+      <CustomButton text="Ajouter une valve" variant="default" onClick={handleAddElectrovalve} />
+
+      {/*MODAL*/}
       <AnimatePresence>
         {modalIsOpen && (
           <motion.div
@@ -94,18 +129,8 @@ export default function Settings() {
             exit={{ opacity: 0, scale: 0.5 }}
           >
             <div className={styles.modalContent}>
-              {modalAction === "addElectrovalve" && <AddElectrovalveForm />}
-              {modalAction === "settingsSlider" && (
-                <SettingsSlider valve={selectedElectrovalve} />
-              )}
-              <button
-                onClick={() => {
-                  setModalIsOpen(false);
-                  setModalAction(null); // Réinitialisez l'action lors de la fermeture de la modale
-                }}
-              >
-                Fermer
-              </button>
+              {modalAction === "addElectrovalve" && <AddElectrovalveForm closeModal={closeModal} onElectrovalveAdded={handleElectrovalveAdded} />}
+              {modalAction === "settingsSlider" && <SettingsSlider valve={selectedElectrovalve} closeModal={closeModal} />}
             </div>
           </motion.div>
         )}
