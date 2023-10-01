@@ -24,9 +24,8 @@ const charge = async (req, res) => {
           },
         ],
         mode: "payment",
-        success_url:
-          "https://yourwebsite.com/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "https://yourwebsite.com/cancel",
+        success_url: "https://localhost:3000",
+        cancel_url: "https://localhost:3000",
       });
 
       console.log("Checkout Session", session);
