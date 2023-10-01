@@ -70,7 +70,6 @@ export const updateValve = async (id, data) => {
       },
       body: JSON.stringify(data),
     });
-    console.log (response)
 
     if (!response.ok) {
       throw new Error("Erreur lors de la mise à jour de l'électrovanne");

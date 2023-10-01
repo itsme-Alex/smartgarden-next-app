@@ -18,7 +18,6 @@ export default function Switch({isAutomatic, id}) {
             await updateValve(id, {
                 isAutomatic: !toggle,
             });
-            console.log("success");
         } catch (error) {
             console.log(error);
         }
