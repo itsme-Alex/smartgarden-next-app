@@ -35,6 +35,7 @@ export default function CurrentWeather() {
         alt="weather icon"
         width={200}
         height={200}
+        priority={true}
       />
       <div className={styles.humidity}>
         <Image
