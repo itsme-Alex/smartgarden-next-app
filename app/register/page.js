@@ -28,6 +28,9 @@ export default function Register() {
     const body = {
       email: email,
       password: password,
+      longitude: String(selectedCity.coordinates[0]),
+      latitude: String(selectedCity.coordinates[1]),
+      city: selectedCity.city,
     };
     // TODO : ajouter la ville et coordonnées GPS
     //TODO: se connecter automatiquement apres l'inscription
@@ -54,7 +57,7 @@ export default function Register() {
     setPassword(e.target.value);
 
     setPasswordValidations({
-      minLength: value.length >= 15,
+      minLength: value.length >= 13,
       upperCase: /[A-Z]/.test(value),
       lowerCase: /[a-z]/.test(value),
       number: /\d/.test(value),
@@ -132,7 +135,7 @@ export default function Register() {
                     passwordValidations.minLength ? styles.valid : styles.card
                   }
                 >
-                  15 caractères
+                  13 caractères
                 </li>
                 <li
                   className={
