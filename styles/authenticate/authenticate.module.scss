@@ -89,9 +89,19 @@
 .passwordRequirements {
   font-family: "Poppins-Regular";
   color: rgb(255, 0, 0);
+  width: fit-content;
+  margin-top: 5px;
+
+  list-style-type: none;
 
   .valid {
     display: none;
+  }
+  .card {
+    width: 100%;
+    box-shadow: 2px 3px 10px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
+    padding: 0 5px;
   }
 }
 

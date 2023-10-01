@@ -88,26 +88,36 @@ export default function Register() {
               />
               <ul className={styles.passwordRequirements}>
                 <li
-                  className={passwordValidations.minLength ? styles.valid : ""}
+                  className={
+                    passwordValidations.minLength ? styles.valid : styles.card
+                  }
                 >
                   15 caractères
                 </li>
                 <li
-                  className={passwordValidations.upperCase ? styles.valid : ""}
+                  className={
+                    passwordValidations.upperCase ? styles.valid : styles.card
+                  }
                 >
                   1 majuscule
                 </li>
                 <li
-                  className={passwordValidations.lowerCase ? styles.valid : ""}
+                  className={
+                    passwordValidations.lowerCase ? styles.valid : styles.card
+                  }
                 >
                   1 minuscule
                 </li>
-                <li className={passwordValidations.number ? styles.valid : ""}>
+                <li
+                  className={
+                    passwordValidations.number ? styles.valid : styles.card
+                  }
+                >
                   1 chiffre
                 </li>
                 <li
                   className={
-                    passwordValidations.specialChar ? styles.valid : ""
+                    passwordValidations.specialChar ? styles.valid : styles.card
                   }
                 >
                   1 caractère spécial
