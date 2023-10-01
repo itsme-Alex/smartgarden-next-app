@@ -36,7 +36,6 @@ export default function Register() {
       latitude: String(selectedCity.coordinates[1]),
       city: selectedCity.city,
     };
-    //TODO: se connecter automatiquement apres l'inscription
     try {
       const res = await fetch("http://127.0.0.1:8080/api/users", {
         method: "POST",
