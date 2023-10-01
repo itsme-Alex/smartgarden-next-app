@@ -15,7 +15,7 @@ import CustomButton
     from "@components/dashboard/utils/CustomButton";
 
 
-export default function SettingsSlider({valve}) {
+export default function SettingsSlider({valve, closeModal}) {
     const [settings, setSettings] = useState({
         duration: 0,
         moistureThreshold: 0,
@@ -71,11 +71,13 @@ export default function SettingsSlider({valve}) {
 
     const handleApplyChanges = async () => {
         try {
-            const updatedData = await updateSettings(valve.id, settings);
+            await updateSettings(valve.id, settings);
+            console.log('Mise à jour réussie !');
         } catch (error) {
-            console.error('Erreur:', error);
+            console.error('Erreur lors de la mise à jour:', error);
         }
     };
+
 
     return (
         <div
@@ -115,8 +117,11 @@ export default function SettingsSlider({valve}) {
                 </div>
             ))}
             <CustomButton
+                variant="default"
                 onClick={handleApplyChanges}
                 text={"Appliquer"}></CustomButton>
+            <CustomButton text="Annuler" variant="cancel" onClick={closeModal} />
+
         </div>
     );
 }

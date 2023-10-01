@@ -20,9 +20,6 @@ export default function ForeCasts() {
 
     getForecasts();
   }, []);
-  useEffect(() => {
-    console.log("forecast", forecast);
-  }, [forecast]);
 
   const filteredForecast =
     forecast &&
@@ -31,7 +28,6 @@ export default function ForeCasts() {
       .filter((item) => item.dt_txt.includes("12:00:00"))
       .slice(0, 5);
 
-  console.log("filteredForecast", filteredForecast);
   filteredForecast?.length > 0 &&
     filteredForecast.forEach((item) => {
       const date = new Date(item.dt_txt);
@@ -53,6 +49,7 @@ export default function ForeCasts() {
                 alt="weather icon"
                 width={60}
                 height={60}
+                priority={true}
                 className={styles.forecastIcon}
               />
               <p className={styles.temp}>{item.main.temp}°C</p>

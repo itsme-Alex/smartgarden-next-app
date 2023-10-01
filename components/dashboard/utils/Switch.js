@@ -1,19 +1,28 @@
 import {motion} from 'framer-motion';
 import styles from '@/styles/dashboard/switch.module.scss';
 import {useEffect, useState} from "react";
-export default function Switch({isAutomatic}) {
+import {
+    updateValve
+} from "@utils/data-fetcher";
+export default function Switch({isAutomatic, id}) {
     const [toggle, setToggle] = useState(false);
-    const handleToggle = () => {
-        setToggle(!toggle);
-        console.log(toggle)
-    }
+    const containerClassName = `${styles.container} ${toggle ? styles.end : ''}`;
 
     useEffect(() => {
             setToggle(isAutomatic ? true : false);
         }, [isAutomatic]
         , );
-
-    const containerClassName = `${styles.container} ${toggle ? styles.end : ''}`;
+    const handleToggle = async () => {
+        try {
+            setToggle(!toggle);
+            await updateValve(id, {
+                isAutomatic: !toggle,
+            });
+            console.log("success");
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div
