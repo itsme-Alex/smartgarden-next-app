@@ -1,5 +1,6 @@
 .container {
   width: 80%;
+  height: 100 vh;
   max-width: 800px;
   margin: 20px auto;
   border: solid 2px rgba(144, 194, 0, 1);
@@ -47,7 +48,7 @@
 .title {
   font-size: 1.2rem;
   margin-bottom: 5px;
-  padding: 10px
+  padding: 10px;
 }
 
 .thresholdContainer {
@@ -55,7 +56,6 @@
   border-top: 1px solid rgba(144, 194, 0, 0.5);
   padding-top: 20px;
 }
-
 
 .inputValue {
   width: 50px;
@@ -85,11 +85,14 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.scheduleActivation, .scheduleTime, .scheduleDays {
+.scheduleActivation,
+.scheduleTime,
+.scheduleDays {
   margin-bottom: 10px;
 }
 
-.dayBadge, .dayBadge * {
+.dayBadge,
+.dayBadge * {
   display: inline-block;
   margin-right: 5px;
   background-color: rgba(144, 194, 0, 0.1);
@@ -117,12 +120,17 @@
 .subTitle {
   font-size: 1.3rem;
   margin-bottom: 10px;
-  color: rgba(144, 194, 0, 1); // Pour donner une couleur distincte au sous-titre
+  color: rgba(
+    144,
+    194,
+    0,
+    1
+  ); // Pour donner une couleur distincte au sous-titre
 }
 
 .buttonContainer {
+  height: 130px;
   display: flex;
   justify-content: space-between; // or 'space-around' or 'center' based on your preference
   align-items: center;
-  margin-top: 20px; // Add some margin at the top for spacing
 }
