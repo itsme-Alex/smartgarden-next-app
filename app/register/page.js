@@ -6,6 +6,8 @@ import Navigation2 from "@components/Navigation2";
 import Footer from "@components/Footer";
 import Image from "next/image";
 import profilePic from "../../public/images/herbe.png";
+import { useRouter } from "next/navigation";
+import { useConnected } from "@context/ConnectedContext";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -21,6 +23,8 @@ export default function Register() {
   const [selectedCity, setSelectedCity] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { updateConnection } = useConnected();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +36,6 @@ export default function Register() {
       latitude: String(selectedCity.coordinates[1]),
       city: selectedCity.city,
     };
-    // TODO : ajouter la ville et coordonnées GPS
     //TODO: se connecter automatiquement apres l'inscription
     try {
       const res = await fetch("http://127.0.0.1:8080/api/users", {
@@ -43,10 +46,25 @@ export default function Register() {
         body: JSON.stringify(body),
       });
 
-      const data = await res.json();
-      console.log(data);
-
-      // Vous pouvez ajouter une logique supplémentaire ici pour gérer la réponse de l'API.
+      if (res.ok) {
+        //connexion
+        const body = {
+          username: email,
+          password: password,
+        };
+        const res = await fetch("/api/login_check", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+        if (res.ok) {
+          updateConnection(true);
+          // Redirection vers la page dashboard
+          router.push("/dashboard");
+        }
+      }
     } catch (error) {
       console.error("Erreur lors de l'inscription:", error);
     }
@@ -97,9 +115,6 @@ export default function Register() {
     setSelectedCity(cityProperties);
     setCity(`${cityProperties.postcode} ${cityProperties.city}`);
   };
-  useEffect(() => {
-    console.log("City selected:", selectedCity);
-  }, [selectedCity]);
 
   return (
     <div>
