@@ -1,15 +1,40 @@
 // CustomButton.module.scss
 
 .customButton {
-  background-color: #90C200;
+    background-color: #90C200;
   border: none;
   border-radius: 14px;
   color: white; // Pour que le texte soit visible sur le fond vert
   padding: 10px 20px; // Ajustez selon vos préférences
   cursor: pointer;
   transition: 0.3s; // Pour une transition douce lors du survol
+  margin: 10px;
 
   &:hover {
     background-color: darken(#90C200, 10%); // Assombrir légèrement au survol
+  }
+}
+
+.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.default {
+  background-color: #90C200;
+  color: white;
+
+  &:hover {
+    background-color: darken(#90C200, 10%); // Assombrir légèrement au survol
+  }
+}
+
+.cancel {
+  background-color: red;
+  color: white;
+
+  &:hover {
+    background-color: darken(red, 10%); // Assombrir légèrement au survol
   }
 }
