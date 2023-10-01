@@ -13,7 +13,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { state, checkConnection, updateConnection } = useConnected();
+  const { updateConnection } = useConnected();
 
   //TODO: message si erreur mdp ou mail
   const handleSubmit = async (e) => {
@@ -24,7 +24,7 @@ export default function Login() {
       password: password,
     };
     try {
-      const res = await fetch("/api/login_check", {
+      const res = await fetch("/api/proxy/login_check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

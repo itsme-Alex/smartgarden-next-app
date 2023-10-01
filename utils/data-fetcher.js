@@ -1,10 +1,9 @@
 // apiActions.js
 const API_ENDPOINTS = {
-  electrovalves: '/api/electrovalves',
-  valveSettings: '/api/valve_settings'
+  electrovalves: "/api/proxy/electrovalves",
+  valveSettings: "/api/proxy/valve_settings",
   // Ajoutez d'autres entités au besoin
 };
-
 
 export const getElectrovalve = async () => {
   const API_URL = API_ENDPOINTS.electrovalves;
@@ -40,8 +39,6 @@ export const addElectrovalve = async (data) => {
   }
 };
 
-
-
 export const getSettings = async (id) => {
   const API_URL = `${API_ENDPOINTS.valveSettings}/${id}`;
   try {
@@ -65,11 +62,11 @@ export const updateSettings = async (id, data) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PATCH",
       headers: {
-        'Content-Type': 'application/merge-patch+json'
+        "Content-Type": "application/merge-patch+json",
       },
       body: JSON.stringify(data),
     });
-console.log (response)
+    console.log(response);
 
     if (!response.ok) {
       throw new Error("Erreur lors de la mise à jour de l'électrovanne");
@@ -81,4 +78,3 @@ console.log (response)
     throw error;
   }
 };
-
