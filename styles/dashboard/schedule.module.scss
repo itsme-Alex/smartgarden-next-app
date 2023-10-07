@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container h2 {
+  align-self: flex-start;
+}
+.scheduleContainer {
+  display: flex;
+  flex-direction: column;
+}
+.schedule {
+  display: flex;
+  width: 100%;
+}
+.jours {
+  display: flex;
+}
+.red {
+  color: red;
+}

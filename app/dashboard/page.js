@@ -8,6 +8,7 @@ import Navigation from "@components/Navigation";
 import Sidebar from "@components/dashboard/Sidebar";
 import { useConnected } from "@context/ConnectedContext";
 import { useRouter } from "next/navigation";
+import Schedule from "@components/dashboard/utils/Schedules";
 
 export default function Dashboard() {
   const { state, checkConnection, updateConnection } = useConnected();
@@ -33,7 +34,7 @@ export default function Dashboard() {
           <Settings />
         </div>
         <div className={styles.higherCard}>
-          <Settings />
+          <Schedule />
         </div>
         <div className={styles.mainContainer}>
           <Settings />
