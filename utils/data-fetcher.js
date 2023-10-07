@@ -2,6 +2,7 @@
 const API_ENDPOINTS = {
   electrovalves: "/api/proxy/electrovalves",
   valveSettings: "/api/proxy/valve_settings",
+  schedules: "/api/proxy/schedules",
   // Ajoutez d'autres entités au besoin
 };
 
@@ -64,28 +65,6 @@ export const deleteElectrovalve = async (id) => {
   }
 };
 
-export const updateValve = async (id, data) => {
-  const API_URL = API_ENDPOINTS.electrovalves;
-  try {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/merge-patch+json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error("Erreur lors de la mise à jour de l'électrovanne");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Erreur lors de l'envoi de la requête PATCH:", error);
-    throw error;
-  }
-};
-
 export const getSettings = async (id) => {
   const API_URL = `${API_ENDPOINTS.valveSettings}/${id}`;
   try {
@@ -103,10 +82,10 @@ export const getSettings = async (id) => {
   }
 };
 
-export const updateSettings = async (id, data) => {
-  const API_URL = API_ENDPOINTS.valveSettings;
+export const updateData = async (endPoint, id, data) => {
+  const API_URL = `/api/proxy/${endPoint}/${id}`;
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(API_URL, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/merge-patch+json",

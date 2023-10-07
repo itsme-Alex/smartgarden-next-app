@@ -1,18 +1,25 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+// .container h2 {
+//   margin-bottom: 10px;
+// }
+.itemContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2em 1fr;
+  margin-top: 10px;
 }
-.container h2 {
-  align-self: flex-start;
-}
+
 .scheduleContainer {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  background-color: rgba(238, 240, 245, 1);
+  border-radius: 14px;
+  padding: 20px 10px;
+  color: rgba(100, 110, 130, 1);
 }
 .schedule {
   display: flex;
+  gap: 10px;
   width: 100%;
 }
 .jours {
