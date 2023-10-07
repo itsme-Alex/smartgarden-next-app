@@ -22,19 +22,20 @@ export const getElectrovalve = async () => {
 };
 export const addElectrovalve = async (data) => {
   const API_URL = API_ENDPOINTS.electrovalves;
-  console.log("data", data);
   try {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erreur lors de l'ajout de l'électrovanne");
+      throw new Error(
+        errorData.message || "Erreur lors de l'ajout de l'électrovanne"
+      );
     }
     return await response.json();
   } catch (error) {
@@ -51,7 +52,9 @@ export const deleteElectrovalve = async (id) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erreur lors de la suppression de l'électrovalve");
+      throw new Error(
+        errorData.message || "Erreur lors de la suppression de l'électrovalve"
+      );
     }
     return true; // Retournez true pour indiquer que la suppression a réussi.
   } catch (error) {
@@ -66,11 +69,10 @@ export const updateValve = async (id, data) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PATCH",
       headers: {
-        'Content-Type': 'application/merge-patch+json'
+        "Content-Type": "application/merge-patch+json",
       },
       body: JSON.stringify(data),
     });
-    console.log (response)
 
     if (!response.ok) {
       throw new Error("Erreur lors de la mise à jour de l'électrovanne");
@@ -106,11 +108,10 @@ export const updateSettings = async (id, data) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PATCH",
       headers: {
-        'Content-Type': 'application/merge-patch+json'
+        "Content-Type": "application/merge-patch+json",
       },
       body: JSON.stringify(data),
     });
-console.log (response)
 
     if (!response.ok) {
       throw new Error("Erreur lors de la mise à jour de l'électrovanne");
