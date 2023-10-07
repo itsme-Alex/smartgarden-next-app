@@ -6,10 +6,10 @@
   border: 2px solid rgba(206, 212, 221, 1);
   border-radius: 14px;
   justify-content: flex-start;
-}
 
-.container.end {
-  justify-content: flex-end;
+  &.end {
+    justify-content: flex-end;
+  }
 }
 
 .circle {
@@ -26,4 +26,46 @@
     margin: 0 auto;
     text-align: center;
   }
+}
+
+.containerschedules {
+  position: relative;
+  align-self: center;
+  display: flex;
+  height: 15px;
+  width: 50px;
+  background-color: #cdd622;
+  border-radius: 14px;
+  justify-content: flex-start;
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
+    inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+
+  &.end {
+    justify-content: flex-end;
+  }
+}
+
+.circleschedules {
+  position: absolute;
+  top: -3px;
+  height: 20px;
+  width: 20px;
+  background-color: rgb(253, 253, 253);
+  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
+    5px 5px 9px rgba(94, 104, 121, 0.3);
+  border-radius: 14px;
+  padding: 4px;
+  text-align: center;
+}
+.circleschedules::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
+    inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
