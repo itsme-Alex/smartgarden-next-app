@@ -1,7 +1,7 @@
 // apiActions.js
 const API_ENDPOINTS = {
-  electrovalves: '/api/electrovalves',
-  valveSettings: '/api/valve_settings'
+  electrovalves: '/api/proxy/electrovalves',
+  valveSettings: '/api/proxy/valve_settings'
   // Ajoutez d'autres entités au besoin
 };
 

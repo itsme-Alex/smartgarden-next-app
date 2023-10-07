@@ -10,20 +10,21 @@ import { addElectrovalve } from "@utils/data-fetcher";
 const AddElectrovalveForm = ({ closeModal, onElectrovalveAdded }) => {
   const [formData, setFormData] = useState({
     name: "",
-    position: null,
+    position: "",
     isAutomatic: false,
     rainThreshold: 100,
     moistureThreshold: 100,
     duration: 0,
     schedules: [
       {
-        hourStart: null,
-        hourEnd: null,
+        hourStart: "",
+        hourEnd: "",
         day: [],
         isActivated: true,
       },
     ],
   });
+
 
   const addNewSchedule = () => {
     setFormData((prevData) => ({
@@ -31,8 +32,8 @@ const AddElectrovalveForm = ({ closeModal, onElectrovalveAdded }) => {
       schedules: [
         ...prevData.schedules,
         {
-          hourStart: null,
-          hourEnd: null,
+          hourStart: "",
+          hourEnd: "",
           day: [],
           isActivated: false,
         },
@@ -130,7 +131,7 @@ const AddElectrovalveForm = ({ closeModal, onElectrovalveAdded }) => {
       onElectrovalveAdded();
       setFormData({
         name: "",
-        position: null,
+        position: "",
         isAutomatic: false,
         rainThreshold: 100,
         moistureThreshold: 100,

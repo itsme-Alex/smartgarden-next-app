@@ -35,6 +35,7 @@ export default function Settings() {
           ...electrovalve,
           id: electrovalve["@id"].split("/").pop()
         }));
+        console.log(data)
         setElectrovalves(transformedData);
       } catch (error) {
         if (error === 401) updateConnection(false);
@@ -67,12 +68,18 @@ export default function Settings() {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await deleteElectrovalve(id);
-      // Mettre à jour la liste des électrovannes après la suppression
-      setUpdateKey(prevKey => prevKey + 1);
-    } catch (error) {
-      console.error('Erreur lors de la suppression:', error);
+    const userConfirmed = window.confirm("Êtes-vous sûr de vouloir supprimer cette électrovalve ?");
+
+    if (userConfirmed) {
+      try {
+        await deleteElectrovalve(id);
+        // Mettre à jour la liste des électrovannes après la suppression
+        setUpdateKey(prevKey => prevKey + 1);
+      } catch (error) {
+        console.error('Erreur lors de la suppression:', error);
+      }
+    } else {
+      console.log("Suppression annulée.");
     }
   };
 
