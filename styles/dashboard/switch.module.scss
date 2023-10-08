@@ -34,7 +34,7 @@
   display: flex;
   height: 20px;
   width: 40px;
-  background-color: #cdd622;
+  background-color: #7a7a73;
   border-radius: 14px;
   justify-content: flex-start;
   box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
@@ -43,6 +43,7 @@
 
   &.end {
     justify-content: flex-end;
+    background-color: #cdd622;
   }
 }
 

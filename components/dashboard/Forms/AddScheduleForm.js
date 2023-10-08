@@ -2,6 +2,7 @@ import Switch from "../utils/Switch";
 import Styles from "@/styles/dashboard/scheduleForm.module.scss";
 import { addData, getElectrovalve } from "@utils/data-fetcher";
 import React, { useState } from "react";
+import CustomButton from "../utils/CustomButton";
 
 const AddScheduleForm = ({
   valveId,
@@ -85,7 +86,7 @@ const AddScheduleForm = ({
         className={Styles.buttonCancel}
         type="cancel"
       >
-        x
+        X
       </button>
       <form onSubmit={handleSubmit} className={Styles.formContainer}>
         <div className={Styles.flexContainer}>
@@ -159,9 +160,10 @@ const AddScheduleForm = ({
             </div>
           </div>
         </div>
-        <button className={Styles.button} type="submit">
+        <CustomButton text="Enregistrer" variant="default" type="submit" />
+        {/* <button className={Styles.button} type="submit">
           Enregistrer
-        </button>
+        </button> */}
       </form>
     </div>
   );

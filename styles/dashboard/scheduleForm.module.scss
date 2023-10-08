@@ -3,7 +3,7 @@
   flex-direction: column;
   margin: 20px 0px;
   border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
   background-color: #ffffff;
   transition: box-shadow 0.3s ease;
   padding: 10px;
@@ -38,5 +38,14 @@
 .buttonCancel {
   align-self: end;
   flex-grow: 0;
+  font-weight: 800;
+  color: red;
   cursor: pointer;
+  background-color: #ffffff;
+  border: 1px solid red;
+  border-radius: 3px;
+  padding: 4px;
+  &:hover {
+    background-color: darken(rgb(255, 255, 255), 10%);
+  }
 }
