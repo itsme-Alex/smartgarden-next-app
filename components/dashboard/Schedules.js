@@ -7,16 +7,20 @@ import CustomButton from "./utils/CustomButton";
 import { AnimatePresence, motion } from "framer-motion";
 import AddScheduleForm from "./Forms/AddScheduleForm";
 
-const Schedules = () => {
-  const [electrovalves, setElectrovalves] = useState([]);
+const Schedules = ({ electrovalves, setElectrovalves }) => {
   const { updateConnection } = useConnected();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [updateKey, setUpdateKey] = useState(0);
+  const [dynamicSchedules, setDynamicSchedules] = useState([]);
 
-  // fonction qui ouvre le modal d'ajout d'une électrovalve
-  const handleAddSchedule = () => {
-    setModalIsOpen(true);
+  const handleAddSchedule = (valveId) => {
+    setDynamicSchedules((prevSchedules) => {
+      if (!prevSchedules.includes(valveId)) {
+        return [...prevSchedules, valveId];
+      }
+      return prevSchedules; // retourne le tableau inchangé si scheduleId y est déjà
+    });
   };
+
   const handleDelete = async (endPoint, id) => {
     try {
       await deleteData(endPoint, id);
@@ -26,6 +30,9 @@ const Schedules = () => {
       console.error("Erreur lors de la suppression:", error);
     }
   };
+  useEffect(() => {
+    console.log("dynamicSchedules", dynamicSchedules);
+  }, [dynamicSchedules]);
 
   useEffect(() => {
     async function fetchData() {
@@ -66,129 +73,109 @@ const Schedules = () => {
               {electrovalve.valveSettings.schedules
                 ?.sort((a, b) => a.hourStart - b.hourStart)
                 .map((schedule) => (
-                  <div key={schedule["@id"]} className={styles.schedule}>
-                    <div>
-                      {(String(schedule.hourStart).length < 2 ? "0" : "") +
-                        schedule.hourStart}
-                      h
+                  <div key={schedule["@id"]}>
+                    <div className={styles.schedule}>
+                      <div>{String(schedule.hourStart).padStart(2, "0")}h</div>
+                      <div>{String(schedule.hourEnd).padStart(2, "0")}h</div>
+                      <div className={styles.jours}>
+                        <div
+                          className={
+                            schedule.days?.includes("Lundi") ? styles.red : ""
+                          }
+                        >
+                          L
+                        </div>
+                        <div
+                          className={
+                            schedule.days?.includes("Mardi")
+                              ? styles.red
+                              : styles.normal
+                          }
+                        >
+                          M
+                        </div>
+                        <div
+                          className={
+                            schedule.days?.includes("Mercredi")
+                              ? styles.red
+                              : styles.normal
+                          }
+                        >
+                          M
+                        </div>
+                        <div
+                          className={
+                            schedule.days?.includes("Jeudi")
+                              ? styles.red
+                              : styles.normal
+                          }
+                        >
+                          J
+                        </div>
+                        <div
+                          className={
+                            schedule.days?.includes("Vendredi")
+                              ? styles.red
+                              : styles.normal
+                          }
+                        >
+                          V
+                        </div>
+                        <div
+                          className={
+                            schedule.days?.includes("Samedi")
+                              ? styles.red
+                              : styles.normal
+                          }
+                        >
+                          S
+                        </div>
+                        <div
+                          className={
+                            schedule.days?.includes("Dimache")
+                              ? styles.red
+                              : styles.normal
+                          }
+                        >
+                          D
+                        </div>
+                      </div>
+                      <Switch
+                        endPoint="schedules"
+                        property="isActivated"
+                        bool={schedule.isActivated}
+                        id={schedule["@id"].split("/").pop()}
+                      />
+                      <div
+                        className={styles.deleteButton}
+                        onClick={() =>
+                          handleDelete(
+                            "schedules",
+                            schedule["@id"].split("/").pop()
+                          )
+                        }
+                      >
+                        x
+                      </div>
                     </div>
-                    <div>
-                      {(String(schedule.hourEnd).length < 2 ? "0" : "") +
-                        schedule.hourEnd}
-                      h
-                    </div>
-                    <div className={styles.jours}>
-                      <div
-                        className={
-                          schedule.days?.includes("Lundi") ? styles.red : ""
-                        }
-                      >
-                        L
-                      </div>
-                      <div
-                        className={
-                          schedule.days?.includes("Mardi")
-                            ? styles.red
-                            : styles.normal
-                        }
-                      >
-                        M
-                      </div>
-                      <div
-                        className={
-                          schedule.days?.includes("Mercredi")
-                            ? styles.red
-                            : styles.normal
-                        }
-                      >
-                        M
-                      </div>
-                      <div
-                        className={
-                          schedule.days?.includes("Jeudi")
-                            ? styles.red
-                            : styles.normal
-                        }
-                      >
-                        J
-                      </div>
-                      <div
-                        className={
-                          schedule.days?.includes("Vendredi")
-                            ? styles.red
-                            : styles.normal
-                        }
-                      >
-                        V
-                      </div>
-                      <div
-                        className={
-                          schedule.days?.includes("Samedi")
-                            ? styles.red
-                            : styles.normal
-                        }
-                      >
-                        S
-                      </div>
-                      <div
-                        className={
-                          schedule.days?.includes("Dimache")
-                            ? styles.red
-                            : styles.normal
-                        }
-                      >
-                        D
-                      </div>
-                    </div>
-                    <Switch
-                      endPoint="schedules"
-                      property="isActivated"
-                      bool={schedule.isActivated}
-                      id={schedule["@id"].split("/").pop()}
-                    />
-                    <div
-                      className={styles.deleteButton}
-                      onClick={() =>
-                        handleDelete(
-                          "schedules",
-                          schedule["@id"].split("/").pop()
-                        )
-                      }
-                    >
-                      x
-                    </div>
+                    {dynamicSchedules.includes(electrovalve.id) && (
+                      <AddScheduleForm
+                        valveId={electrovalve.id}
+                        setDynamicSchedules={setDynamicSchedules}
+                      />
+                    )}
                   </div>
                 ))}
+              <CustomButton
+                centered={true}
+                text="Ajouter une planification"
+                variant="default"
+                onClick={() => handleAddSchedule(electrovalve.id)}
+              />
             </div>
           </div>
         ))
       )}
-      <CustomButton
-        text="Ajouter une planification"
-        variant="default"
-        onClick={handleAddSchedule}
-      />
-
-      {/*MODAL*/}
-      <AnimatePresence>
-        {modalIsOpen && (
-          <motion.div
-            className={styles.modal}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-          >
-            <div className={styles.modalContent}>
-              {modalAction === "addElectrovalve" && (
-                <AddScheduleForm
-                  closeModal={closeModal}
-                  onElectrovalveAdded={handleElectrovalveAdded}
-                />
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };

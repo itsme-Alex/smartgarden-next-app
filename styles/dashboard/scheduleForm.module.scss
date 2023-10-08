@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: box-shadow 0.3s ease;
+  padding: 10px;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+}
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 5px;
+}
+.inputHour {
+  display: flex;
+  flex-direction: column;
+}
+.inputHour label {
+  font-family: "Poppins-Thin";
+}
+
+.inputHour select {
+  width: 40px;
+}
+
+.button {
+  margin-top: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.buttonCancel {
+  align-self: end;
+  flex-grow: 0;
+  cursor: pointer;
+}

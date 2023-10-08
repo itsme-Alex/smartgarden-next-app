@@ -15,8 +15,7 @@ import CustomButton from "@components/dashboard/utils/CustomButton";
 import AddElectrovalveForm from "@components/dashboard/Forms/AddElectroValveForm";
 import { useConnected } from "@context/ConnectedContext";
 
-export default function Settings() {
-  const [electrovalves, setElectrovalves] = useState([]);
+export default function Settings({ electrovalves, setElectrovalves }) {
   const [selectedElectrovalve, setSelectedElectrovalve] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
@@ -84,7 +83,7 @@ export default function Settings() {
   return (
     <div className={styles.container}>
       <h2>Panneau de contrôle</h2>
-      {electrovalves.length === 0 ? (
+      { electrovalves.length === 0 ? (
         <p>Aucune électrovanne enregistrée en base de données.</p>
       ) : (
         electrovalves.map((electrovalve) => (

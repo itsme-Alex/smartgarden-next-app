@@ -12,6 +12,7 @@ export default function Switch({ endPoint, property, bool, id }) {
   useEffect(() => {
     setToggle(bool ? true : false);
   }, [bool]);
+
   const handleToggle = async () => {
     try {
       const resp = await updateData(endPoint, id, {
@@ -22,6 +23,9 @@ export default function Switch({ endPoint, property, bool, id }) {
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleDefaultToggle = async () => {
+    setToggle(!toggle);
   };
 
   switch (endPoint) {
@@ -38,6 +42,15 @@ export default function Switch({ endPoint, property, bool, id }) {
     case "schedules":
       return (
         <div onClick={handleToggle} className={containerClassNameSchedules}>
+          <motion.div className={styles.circleschedules} layout></motion.div>
+        </div>
+      );
+    case "input":
+      return (
+        <div
+          onClick={handleDefaultToggle}
+          className={containerClassNameSchedules}
+        >
           <motion.div className={styles.circleschedules} layout></motion.div>
         </div>
       );
