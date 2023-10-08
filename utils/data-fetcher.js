@@ -64,6 +64,26 @@ export const deleteElectrovalve = async (id) => {
     throw error;
   }
 };
+export const deleteData = async (endPoint, id) => {
+  const API_URL = `/api/proxy/${endPoint}/${id}`;
+  console.log("API_URL", API_URL);
+  try {
+    const response = await fetch(API_URL, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.message || "Erreur lors de la suppression de" + endPoint
+      );
+    }
+    return true; // Retournez true pour indiquer que la suppression a réussi.
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de la requête DELETE:", error);
+    throw error;
+  }
+};
 
 export const getSettings = async (id) => {
   const API_URL = `${API_ENDPOINTS.valveSettings}/${id}`;

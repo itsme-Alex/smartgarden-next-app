@@ -32,13 +32,14 @@
   position: relative;
   align-self: center;
   display: flex;
-  height: 15px;
-  width: 50px;
+  height: 20px;
+  width: 40px;
   background-color: #cdd622;
   border-radius: 14px;
   justify-content: flex-start;
   box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
     inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+  cursor: pointer;
 
   &.end {
     justify-content: flex-end;
@@ -47,7 +48,7 @@
 
 .circleschedules {
   position: absolute;
-  top: -3px;
+  top: 0px;
   height: 20px;
   width: 20px;
   background-color: rgb(253, 253, 253);

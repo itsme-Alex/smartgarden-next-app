@@ -44,6 +44,4 @@ export default function Switch({ endPoint, property, bool, id }) {
     default:
       return null; // ou return <> </>; si vous préférez
   }
-
-  return null;
 }
