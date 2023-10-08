@@ -52,13 +52,6 @@ const Schedules = ({ electrovalves, setElectrovalves }) => {
     //eslint-disable-next-line
   }, [updateKey]);
 
-  useEffect(() => {
-    console.log("scheduleId", electrovalves);
-    console.log(
-      electrovalves[0]?.valveSettings.schedules[0]["@id"].split("/").pop()
-    );
-  }, [electrovalves]);
-
   return (
     <div className={styles.container}>
       <h2>Planifications</h2>
@@ -158,14 +151,16 @@ const Schedules = ({ electrovalves, setElectrovalves }) => {
                         x
                       </div>
                     </div>
-                    {dynamicSchedules.includes(electrovalve.id) && (
-                      <AddScheduleForm
-                        valveId={electrovalve.id}
-                        setDynamicSchedules={setDynamicSchedules}
-                      />
-                    )}
                   </div>
                 ))}
+              {dynamicSchedules.includes(electrovalve.id) && (
+                <AddScheduleForm
+                  valveId={electrovalve.id}
+                  settingsId={electrovalve.valveSettings["@id"]}
+                  setElectrovalves={setElectrovalves}
+                  setDynamicSchedules={setDynamicSchedules}
+                />
+              )}
               <CustomButton
                 centered={true}
                 text="Ajouter une planification"

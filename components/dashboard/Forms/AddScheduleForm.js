@@ -1,20 +1,68 @@
 import Switch from "../utils/Switch";
 import Styles from "@/styles/dashboard/scheduleForm.module.scss";
+import { addData, getElectrovalve } from "@utils/data-fetcher";
 import React, { useState } from "react";
 
-const AddScheduleForm = ({ valveId, setDynamicSchedules }) => {
+const AddScheduleForm = ({
+  valveId,
+  settingsId,
+  setElectrovalves,
+  setDynamicSchedules,
+}) => {
   const [selectedDays, setSelectedDays] = useState([]);
   const [startHour, setStartHour] = useState("00");
   const [endHour, setEndHour] = useState("01");
 
-  console.log(valveId);
+  console.log("valveId", valveId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log("startHour", e.target.startHour.value);
-    console.log("endHour", e.target.endHour.value);
-    console.log("days", selectedDays);
+    const days = convertDaysToString(selectedDays);
+    const data = {
+      hourStart: Number(e.target.startHour.value),
+      hourEnd: Number(e.target.endHour.value),
+      days: days,
+      isActivated: true,
+      valveSettings: settingsId,
+    };
+    console.log(data);
+
+    try {
+      await addData("schedules", data);
+      cancelFunction(valveId);
+      const dataValve = await getElectrovalve();
+      const transformedData = dataValve["hydra:member"].map((electrovalve) => ({
+        ...electrovalve,
+        id: electrovalve["@id"].split("/").pop(),
+      }));
+      setElectrovalves(transformedData);
+    } catch (error) {
+      if (error === 401) updateConnection(false);
+    }
+  };
+
+  const convertDaysToString = (days) => {
+    const daysString = days.map((day) => {
+      switch (day) {
+        case 0:
+          return "Lundi";
+        case 1:
+          return "Mardi";
+        case 2:
+          return "Mercredi";
+        case 3:
+          return "Jeudi";
+        case 4:
+          return "Vendredi";
+        case 5:
+          return "Samedi";
+        case 6:
+          return "Dimanche";
+        default:
+          return null;
+      }
+    });
+    return daysString;
   };
 
   const toggleDay = (day) => {

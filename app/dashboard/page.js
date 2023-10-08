@@ -17,6 +17,10 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log("electrovalves", electrovalves);
+  }, [electrovalves]);
+
+  useEffect(() => {
     if (!state.isConnected) router.push("/login");
     //eslint-disable-next-line
   }, [state.isConnected]);
@@ -74,14 +78,14 @@ export default function Dashboard() {
             />
           )}
         </div>
-        <div className={styles.mainContainer}>
+        {/* <div className={styles.mainContainer}>
           {electrovalves && (
             <Settings
               electrovalves={electrovalves}
               setElectrovalves={setElectrovalves}
             />
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

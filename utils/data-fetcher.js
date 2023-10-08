@@ -45,6 +45,30 @@ export const addElectrovalve = async (data) => {
     throw error;
   }
 };
+export const addData = async (endPoint, data) => {
+  const API_URL = `/api/proxy/${endPoint}`;
+  console.log("data", data);
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.message || "Erreur lors de l'ajout de l'électrovanne"
+      );
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de la requête POST:", error);
+    throw error;
+  }
+};
 export const deleteElectrovalve = async (id) => {
   const API_URL = `${API_ENDPOINTS.electrovalves}/${id}`;
   try {
