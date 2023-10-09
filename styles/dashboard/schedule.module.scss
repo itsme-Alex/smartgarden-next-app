@@ -1,0 +1,60 @@
+// .container h2 {
+//   margin-bottom: 10px;
+// }
+.itemContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2em 1fr;
+  margin-top: 10px;
+}
+.itemContainer h3 {
+  font-family: "Poppins-Regular";
+  letter-spacing: 0.1em;
+}
+.scheduleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  background-color: rgba(238, 240, 245, 1);
+  border-radius: 14px;
+  padding: 20px 10px;
+  color: rgba(100, 110, 130, 1);
+}
+.schedule {
+  display: flex;
+  justify-content: space-around;
+  font-family: "Poppins-Regular";
+  gap: 10px;
+  width: 100%;
+}
+.jours {
+  display: flex;
+}
+.red {
+  color: red;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(238, 240, 245, 1);
+  padding-top: 10%;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.modalContent {
+  text-align: center;
+  max-height: 100%;
+  overflow: auto;
+  padding: 50px;
+}
+.deleteButton {
+  cursor: pointer;
+  font-family: "Poppins";
+  color: red;
+  padding: 3px;
+  margin-top: auto;
+}

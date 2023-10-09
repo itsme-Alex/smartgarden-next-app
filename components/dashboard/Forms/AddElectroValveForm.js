@@ -148,7 +148,7 @@ const AddElectrovalveForm = ({ closeModal, onElectrovalveAdded }) => {
       <div className={styles.header}>
         <p>Ajouter une électrovanne</p>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.basicInfoContainer}>
           <h2 className={styles.subTitle}>Informations générales</h2>
           <div>

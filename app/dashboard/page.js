@@ -8,15 +8,40 @@ import Navigation from "@components/Navigation";
 import Sidebar from "@components/dashboard/Sidebar";
 import { useConnected } from "@context/ConnectedContext";
 import { useRouter } from "next/navigation";
+import Schedule from "@components/dashboard/Schedules";
+import Schedules from "@components/dashboard/Schedules";
 
 export default function Dashboard() {
+  const [electrovalves, setElectrovalves] = useState([]);
   const { state, checkConnection, updateConnection } = useConnected();
   const router = useRouter();
+
+  useEffect(() => {
+    console.log("electrovalves", electrovalves);
+  }, [electrovalves]);
 
   useEffect(() => {
     if (!state.isConnected) router.push("/login");
     //eslint-disable-next-line
   }, [state.isConnected]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getElectrovalve();
+        const transformedData = data["hydra:member"].map((electrovalve) => ({
+          ...electrovalve,
+          id: electrovalve["@id"].split("/").pop(),
+        }));
+        setElectrovalves(transformedData);
+      } catch (error) {
+        if (error === 401) updateConnection(false);
+      }
+    }
+    fetchData();
+
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <div className={styles.page}>
@@ -30,17 +55,37 @@ export default function Dashboard() {
           <Forecast />
         </div>
         <div className={styles.higherCard}>
-          <Settings />
+          {electrovalves && (
+            <Settings
+              electrovalves={electrovalves}
+              setElectrovalves={setElectrovalves}
+            />
+          )}
         </div>
         <div className={styles.higherCard}>
-          <Settings />
+          {electrovalves && (
+            <Schedules
+              electrovalves={electrovalves}
+              setElectrovalves={setElectrovalves}
+            />
+          )}
         </div>
         <div className={styles.mainContainer}>
-          <Settings />
+          {electrovalves && (
+            <Settings
+              electrovalves={electrovalves}
+              setElectrovalves={setElectrovalves}
+            />
+          )}
         </div>
-        <div className={styles.mainContainer}>
-          <Settings />
-        </div>
+        {/* <div className={styles.mainContainer}>
+          {electrovalves && (
+            <Settings
+              electrovalves={electrovalves}
+              setElectrovalves={setElectrovalves}
+            />
+          )}
+        </div> */}
       </div>
     </div>
   );
