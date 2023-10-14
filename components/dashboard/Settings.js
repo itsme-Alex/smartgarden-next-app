@@ -8,19 +8,14 @@ import { faFaucetDrip } from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence, motion } from "framer-motion";
 
 import SettingsButton from "@/components/dashboard/utils/SettingsButton";
-import Switch from "@/components/dashboard/utils/Switch";
+import Switch from "./utils/Switch";
 import SettingsSlider from "@/components/dashboard/utils/SettingsSlider";
-import {
-  deleteElectrovalve,
-  getElectrovalve,
-  updateSettings
-} from "@utils/data-fetcher";
+import { deleteElectrovalve, getElectrovalve } from "@utils/data-fetcher";
 import CustomButton from "@components/dashboard/utils/CustomButton";
 import AddElectrovalveForm from "@components/dashboard/Forms/AddElectroValveForm";
 import { useConnected } from "@context/ConnectedContext";
 
-export default function Settings() {
-  const [electrovalves, setElectrovalves] = useState([]);
+export default function Settings({ electrovalves, setElectrovalves }) {
   const [selectedElectrovalve, setSelectedElectrovalve] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
@@ -31,9 +26,9 @@ export default function Settings() {
     async function fetchData() {
       try {
         const data = await getElectrovalve();
-        const transformedData = data["hydra:member"].map(electrovalve => ({
+        const transformedData = data["hydra:member"].map((electrovalve) => ({
           ...electrovalve,
-          id: electrovalve["@id"].split("/").pop()
+          id: electrovalve["@id"].split("/").pop(),
         }));
         setElectrovalves(transformedData);
       } catch (error) {
@@ -42,12 +37,16 @@ export default function Settings() {
     }
     fetchData();
     //eslint-disable-next-line
-  },  [updateKey]);
+  }, [updateKey]);
 
   // fonction qui ouvre le modal de paramétrage d'une électrovalve
   const openElectrovalveSettings = (electrovalveName, valveSettings) => {
     setModalIsOpen(true);
-    setSelectedElectrovalve({ name: electrovalveName, settings: valveSettings, id: valveSettings['@id'].split('/').pop() });
+    setSelectedElectrovalve({
+      name: electrovalveName,
+      settings: valveSettings,
+      id: valveSettings["@id"].split("/").pop(),
+    });
     setModalAction("settingsSlider");
   };
 
@@ -63,16 +62,16 @@ export default function Settings() {
 
   // fonction qui active le useffect de la page d'accueil pour mettre à jour la liste des électrovalves
   const handleElectrovalveAdded = () => {
-    setUpdateKey(prevKey => prevKey + 1);
+    setUpdateKey((prevKey) => prevKey + 1);
   };
 
   const handleDelete = async (id) => {
     try {
       await deleteElectrovalve(id);
       // Mettre à jour la liste des électrovannes après la suppression
-      setUpdateKey(prevKey => prevKey + 1);
+      setUpdateKey((prevKey) => prevKey + 1);
     } catch (error) {
-      console.error('Erreur lors de la suppression:', error);
+      console.error("Erreur lors de la suppression:", error);
     }
   };
 
@@ -84,7 +83,7 @@ export default function Settings() {
   return (
     <div className={styles.container}>
       <h2>Panneau de contrôle</h2>
-      {electrovalves.length === 0 ? (
+      { electrovalves.length === 0 ? (
         <p>Aucune électrovanne enregistrée en base de données.</p>
       ) : (
         electrovalves.map((electrovalve) => (
@@ -93,7 +92,10 @@ export default function Settings() {
               <p>
                 Circuit {electrovalve.position} : {electrovalve.name}
               </p>
-              <div className={styles.deleteButton} onClick={() => handleDelete(electrovalve.id)}>
+              <div
+                className={styles.deleteButton}
+                onClick={() => handleDelete(electrovalve.id)}
+              >
                 x
               </div>
             </div>
@@ -102,7 +104,10 @@ export default function Settings() {
                 <SettingsButton
                   icon={faSliders}
                   onClick={() =>
-                    openElectrovalveSettings(electrovalve.name, electrovalve.valveSettings)
+                    openElectrovalveSettings(
+                      electrovalve.name,
+                      electrovalve.valveSettings
+                    )
                   }
                 />
               </motion.div>
@@ -112,12 +117,21 @@ export default function Settings() {
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                 <SettingsButton icon={faFaucetDrip} onClick={handleWater} />
               </motion.div>
-              <Switch isAutomatic={electrovalve.isAutomatic} id={electrovalve.id}/>
+              <Switch
+                endPoint="electrovalves"
+                property="isAutomatic"
+                bool={electrovalve.isAutomatic}
+                id={electrovalve.id}
+              />
             </div>
           </div>
         ))
       )}
-      <CustomButton text="Ajouter une valve" variant="default" onClick={handleAddElectrovalve} />
+      <CustomButton
+        text="Ajouter une valve"
+        variant="default"
+        onClick={handleAddElectrovalve}
+      />
 
       {/*MODAL*/}
       <AnimatePresence>
@@ -129,8 +143,18 @@ export default function Settings() {
             exit={{ opacity: 0, scale: 0.5 }}
           >
             <div className={styles.modalContent}>
-              {modalAction === "addElectrovalve" && <AddElectrovalveForm closeModal={closeModal} onElectrovalveAdded={handleElectrovalveAdded} />}
-              {modalAction === "settingsSlider" && <SettingsSlider valve={selectedElectrovalve} closeModal={closeModal} />}
+              {modalAction === "addElectrovalve" && (
+                <AddElectrovalveForm
+                  closeModal={closeModal}
+                  onElectrovalveAdded={handleElectrovalveAdded}
+                />
+              )}
+              {modalAction === "settingsSlider" && (
+                <SettingsSlider
+                  valve={selectedElectrovalve}
+                  closeModal={closeModal}
+                />
+              )}
             </div>
           </motion.div>
         )}
