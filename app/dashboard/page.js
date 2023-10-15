@@ -8,7 +8,6 @@ import Navigation from "@components/Navigation";
 import Sidebar from "@components/dashboard/Sidebar";
 import { useConnected } from "@context/ConnectedContext";
 import { useRouter } from "next/navigation";
-import Schedule from "@components/dashboard/Schedules";
 import Schedules from "@components/dashboard/Schedules";
 
 export default function Dashboard() {

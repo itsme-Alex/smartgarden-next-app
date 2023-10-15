@@ -1,46 +1,26 @@
 "use client";
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 
-const initialState = {
-  isConnected: true,
-};
-
-const ConnectedReducer = (state, action) => {
-  switch (action.type) {
-    case "SET_CONNECTED":
-      return { ...state, isConnected: action.payload };
-    default:
-      return state;
-  }
-};
-
 const ConnectedContext = createContext();
 
 // Création du fournisseur de contexte
 export const ConnectedProvider = ({ children }) => {
-  const [state, dispatchConnection] = useReducer(
-    ConnectedReducer,
-    initialState
-  );
+  const [state, setState] = useState(true);
 
   const updateConnection = (bool) => {
-    dispatchConnection({
-      type: "SET_CONNECTED",
-      payload: bool,
-    });
+    setState(bool);
   };
-
   const checkConnection = async () => {
     const isConnected = await fetch("/api/isConnected");
     if (isConnected.ok) {
-      updateConnection(true);
+      setState(true);
     } else {
-      updateConnection(false);
+      setState(false);
     }
   };
+
   useEffect(() => {
     checkConnection(); // Vérifie la connexion lors de l'initialisation
-    //eslint-disable-next-line
   }, []);
 
   return (
@@ -63,4 +43,4 @@ export const useConnected = () => {
   return context;
 };
 
-export default ConnectedContext;
+export default useConnected;
