@@ -10,6 +10,8 @@ import { useConnected } from "@context/ConnectedContext";
 import { useRouter } from "next/navigation";
 import Schedule from "@components/dashboard/Schedules";
 import Schedules from "@components/dashboard/Schedules";
+import IrrigationsHistory from "@components/dashboard/IrrigationsHistory";
+import Stats from "@components/dashboard/Stats";
 
 export default function Dashboard() {
   const [electrovalves, setElectrovalves] = useState([]);
@@ -72,20 +74,14 @@ export default function Dashboard() {
         </div>
         <div className={styles.mainContainer}>
           {electrovalves && (
-            <Settings
-              electrovalves={electrovalves}
-              setElectrovalves={setElectrovalves}
-            />
+              <IrrigationsHistory electrovalves={electrovalves} />
           )}
         </div>
-        {/* <div className={styles.mainContainer}>
+        <div className={styles.mainContainer}>
           {electrovalves && (
-            <Settings
-              electrovalves={electrovalves}
-              setElectrovalves={setElectrovalves}
-            />
+              <Stats electrovalves={electrovalves} />
           )}
-        </div> */}
+        </div>
       </div>
     </div>
   );
