@@ -8,10 +8,10 @@ import Navigation from "@components/Navigation";
 import Sidebar from "@components/dashboard/Sidebar";
 import { useConnected } from "@context/ConnectedContext";
 import { useRouter } from "next/navigation";
-import Schedule from "@components/dashboard/Schedules";
 import Schedules from "@components/dashboard/Schedules";
 import IrrigationsHistory from "@components/dashboard/IrrigationsHistory";
 import Stats from "@components/dashboard/Stats";
+import { getElectrovalve } from "@utils/data-fetcher";
 
 export default function Dashboard() {
   const [electrovalves, setElectrovalves] = useState([]);
@@ -23,6 +23,7 @@ export default function Dashboard() {
   }, [electrovalves]);
 
   useEffect(() => {
+    console.log("state.isConnected", state.isConnected);
     if (!state.isConnected) router.push("/login");
     //eslint-disable-next-line
   }, [state.isConnected]);
@@ -31,15 +32,15 @@ export default function Dashboard() {
     async function fetchData() {
       try {
         const data = await getElectrovalve();
-        const transformedData = data["hydra:member"].map((electrovalve) => ({
-          ...electrovalve,
-          id: electrovalve["@id"].split("/").pop(),
-        }));
-        setElectrovalves(transformedData);
+
+        console.log("data", data);
+
+        setElectrovalves(data);
       } catch (error) {
         if (error === 401) updateConnection(false);
       }
     }
+
     fetchData();
 
     //eslint-disable-next-line
@@ -74,13 +75,11 @@ export default function Dashboard() {
         </div>
         <div className={styles.mainContainer}>
           {electrovalves && (
-              <IrrigationsHistory electrovalves={electrovalves} />
+            <IrrigationsHistory electrovalves={electrovalves} />
           )}
         </div>
         <div className={styles.mainContainer}>
-          {electrovalves && (
-              <Stats electrovalves={electrovalves} />
-          )}
+          {electrovalves && <Stats electrovalves={electrovalves} />}
         </div>
       </div>
     </div>

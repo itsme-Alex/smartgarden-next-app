@@ -38,11 +38,8 @@ const Schedules = ({ electrovalves, setElectrovalves }) => {
     async function fetchData() {
       try {
         const data = await getElectrovalve();
-        const transformedData = data["hydra:member"].map((electrovalve) => ({
-          ...electrovalve,
-          id: electrovalve["@id"].split("/").pop(),
-        }));
-        setElectrovalves(transformedData);
+
+        setElectrovalves(data);
       } catch (error) {
         if (error === 401) updateConnection(false);
       }
@@ -66,7 +63,7 @@ const Schedules = ({ electrovalves, setElectrovalves }) => {
               {electrovalve.valveSettings.schedules
                 ?.sort((a, b) => a.hourStart - b.hourStart)
                 .map((schedule) => (
-                  <div key={schedule["@id"]}>
+                  <div key={schedule.id}>
                     <div className={styles.schedule}>
                       <div>{String(schedule.hourStart).padStart(2, "0")}h</div>
                       <div>{String(schedule.hourEnd).padStart(2, "0")}h</div>
@@ -137,16 +134,11 @@ const Schedules = ({ electrovalves, setElectrovalves }) => {
                         endPoint="schedules"
                         property="isActivated"
                         bool={schedule.isActivated}
-                        id={schedule["@id"].split("/").pop()}
+                        id={schedule.id}
                       />
                       <div
                         className={styles.deleteButton}
-                        onClick={() =>
-                          handleDelete(
-                            "schedules",
-                            schedule["@id"].split("/").pop()
-                          )
-                        }
+                        onClick={() => handleDelete("schedules", schedule.id)}
                       >
                         x
                       </div>
@@ -156,7 +148,7 @@ const Schedules = ({ electrovalves, setElectrovalves }) => {
               {dynamicSchedules.includes(electrovalve.id) && (
                 <AddScheduleForm
                   valveId={electrovalve.id}
-                  settingsId={electrovalve.valveSettings["@id"]}
+                  settingsId={electrovalve.valveSettings.id}
                   setElectrovalves={setElectrovalves}
                   setDynamicSchedules={setDynamicSchedules}
                 />

@@ -10,6 +10,7 @@ const API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude
 export default function ForeCasts() {
   // Utilisez une majuscule pour les noms de composants
   const [forecast, setForecast] = useState(null);
+  const [filteredForecast, setFilteredForecast] = useState(null);
 
   useEffect(() => {
     const getForecasts = async () => {
@@ -21,21 +22,29 @@ export default function ForeCasts() {
     getForecasts();
   }, []);
 
-  const filteredForecast =
-    forecast &&
-    forecast.list.length > 0 &&
-    forecast.list
-      .filter((item) => item.dt_txt.includes("12:00:00"))
-      .slice(0, 5);
+  useEffect(() => {
+    if (!forecast) return;
+    if (!forecast.list.length) return;
 
-  filteredForecast?.length > 0 &&
-    filteredForecast.forEach((item) => {
-      const date = new Date(item.dt_txt);
-      const day = String(date.getDate()).padStart(2, "0");
-      const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois sont indexés à partir de 0
-      item.dt_txt = `${day}-${month}`;
-      item.main.temp = Math.round(item.main.temp);
-    });
+    const filteredForecast =
+      forecast &&
+      forecast.list.length > 0 &&
+      forecast.list
+        .filter((item) => item.dt_txt.includes("12:00:00"))
+        .slice(0, 5);
+
+    filteredForecast?.length > 0 &&
+      filteredForecast.forEach((item) => {
+        const date = new Date(item.dt_txt);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois sont indexés à partir de 0
+        item.dt_txt = `${day}-${month}`;
+        item.main.temp = Math.round(item.main.temp);
+      });
+
+    setFilteredForecast(filteredForecast);
+  }, [forecast]);
+
   return (
     <div className={styles.container}>
       <h2>Prévision sur 5 jours</h2>

@@ -3,6 +3,7 @@ import Styles from "@/styles/dashboard/scheduleForm.module.scss";
 import { addData, getElectrovalve } from "@utils/data-fetcher";
 import React, { useState } from "react";
 import CustomButton from "../utils/CustomButton";
+import { useConnected } from "@context/ConnectedContext";
 
 const AddScheduleForm = ({
   valveId,
@@ -13,8 +14,9 @@ const AddScheduleForm = ({
   const [selectedDays, setSelectedDays] = useState([]);
   const [startHour, setStartHour] = useState("00");
   const [endHour, setEndHour] = useState("01");
+  const { updateConnection } = useConnected();
 
-  console.log("valveId", valveId);
+  console.log("valveId", settingsId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ const AddScheduleForm = ({
       hourEnd: Number(e.target.endHour.value),
       days: days,
       isActivated: true,
-      valveSettings: settingsId,
+      valveSettings: `api/valve_settings/${settingsId}`,
     };
     console.log(data);
 
@@ -32,12 +34,10 @@ const AddScheduleForm = ({
       await addData("schedules", data);
       cancelFunction(valveId);
       const dataValve = await getElectrovalve();
-      const transformedData = dataValve["hydra:member"].map((electrovalve) => ({
-        ...electrovalve,
-        id: electrovalve["@id"].split("/").pop(),
-      }));
-      setElectrovalves(transformedData);
+
+      setElectrovalves(dataValve);
     } catch (error) {
+      console.log("error", error);
       if (error === 401) updateConnection(false);
     }
   };
@@ -97,30 +97,14 @@ const AddScheduleForm = ({
               value={startHour}
               onChange={(e) => setStartHour(e.target.value)}
             >
-              <option value="00">00</option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
+              {Array.from({ length: 24 }).map((_, index) => {
+                const hour = String(index).padStart(2, "0");
+                return (
+                  <option key={hour} value={hour}>
+                    {hour}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className={Styles.inputHour}>
