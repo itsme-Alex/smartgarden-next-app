@@ -1,9 +1,8 @@
 import httpProxy from "http-proxy";
-import Cookies from "cookies";
 import { URL } from "url";
-import jwt from "jsonwebtoken";
 
 const API_URL = process.env.API_URL; //"http://localhost:8080";
+console.log("API_URL", API_URL);
 const proxy = httpProxy.createProxyServer();
 
 export const config = {
@@ -14,6 +13,7 @@ export const config = {
 
 const apiProxy = async (req, res) => {
   req.url = req.url.replace("/proxy", "");
+  console.log("req.url", req.url);
 
   return new Promise((resolve, reject) => {
     req.headers.host = new URL(API_URL).host;

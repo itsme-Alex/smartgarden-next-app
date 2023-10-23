@@ -9,6 +9,7 @@ import Sidebar from "@components/dashboard/Sidebar";
 import { useConnected } from "@context/ConnectedContext";
 import { useRouter } from "next/navigation";
 import Schedules from "@components/dashboard/Schedules";
+import { getElectrovalve } from "@utils/data-fetcher";
 
 export default function Dashboard() {
   const [electrovalves, setElectrovalves] = useState([]);
@@ -20,6 +21,7 @@ export default function Dashboard() {
   }, [electrovalves]);
 
   useEffect(() => {
+    console.log("state.isConnected", state.isConnected);
     if (!state.isConnected) router.push("/login");
     //eslint-disable-next-line
   }, [state.isConnected]);
@@ -28,15 +30,15 @@ export default function Dashboard() {
     async function fetchData() {
       try {
         const data = await getElectrovalve();
-        const transformedData = data["hydra:member"].map((electrovalve) => ({
-          ...electrovalve,
-          id: electrovalve["@id"].split("/").pop(),
-        }));
-        setElectrovalves(transformedData);
+
+        console.log("data", data);
+
+        setElectrovalves(data);
       } catch (error) {
         if (error === 401) updateConnection(false);
       }
     }
+
     fetchData();
 
     //eslint-disable-next-line

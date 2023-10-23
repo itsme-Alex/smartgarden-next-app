@@ -12,7 +12,7 @@ export const getElectrovalve = async () => {
     const apiRes = await fetch(API_URL, {
       method: "GET",
     });
-
+    //console.log(await apiRes.json());
     if (!apiRes.ok) {
       throw new Error(`${apiRes.status}`);
     }

@@ -16,7 +16,7 @@ const AddScheduleForm = ({
   const [endHour, setEndHour] = useState("01");
   const { updateConnection } = useConnected();
 
-  console.log("valveId", valveId);
+  console.log("valveId", settingsId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ const AddScheduleForm = ({
       hourEnd: Number(e.target.endHour.value),
       days: days,
       isActivated: true,
-      valveSettings: settingsId,
+      valveSettings: `api/valve_settings/${settingsId}`,
     };
     console.log(data);
 
@@ -34,11 +34,8 @@ const AddScheduleForm = ({
       await addData("schedules", data);
       cancelFunction(valveId);
       const dataValve = await getElectrovalve();
-      const transformedData = dataValve["hydra:member"].map((electrovalve) => ({
-        ...electrovalve,
-        id: electrovalve["@id"].split("/").pop(),
-      }));
-      setElectrovalves(transformedData);
+
+      setElectrovalves(dataValve);
     } catch (error) {
       console.log("error", error);
       if (error === 401) updateConnection(false);

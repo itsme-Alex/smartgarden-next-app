@@ -1,26 +1,103 @@
+// "use client";
+// import React, {
+//   createContext,
+//   use,
+//   useContext,
+//   useEffect,
+//   useReducer,
+//   useState,
+// } from "react";
+
+// const ConnectedContext = createContext();
+
+// // Création du fournisseur de contexte
+// export const ConnectedProvider = ({ children }) => {
+//   const [state, setState] = useState(true);
+//   useEffect(() => {
+//     console.log(state);
+//   }, [state]);
+
+//   const updateConnection = (bool) => {
+//     setState(bool);
+//   };
+//   const checkConnection = async () => {
+//     const isConnected = await fetch("/api/isConnected");
+//     if (isConnected.ok) {
+//       setState(true);
+//     } else {
+//       setState(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     checkConnection(); // Vérifie la connexion lors de l'initialisation
+//   }, []);
+
+//   return (
+//     <ConnectedContext.Provider
+//       value={{ state, updateConnection, checkConnection }}
+//     >
+//       {children}
+//     </ConnectedContext.Provider>
+//   );
+// };
+
+// // 3. Création du hook personnalisé pour utiliser le contexte
+// export const useConnected = () => {
+//   const context = useContext(ConnectedContext);
+//   if (!context) {
+//     throw new Error(
+//       "useConnected doit être utilisé à l'intérieur de ConnectedProvider"
+//     );
+//   }
+//   return context;
+// };
+
+// export default useConnected;
+
 "use client";
 import React, { createContext, useContext, useEffect, useReducer } from "react";
+
+const initialState = {
+  isConnected: true,
+};
+
+const ConnectedReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_CONNECTED":
+      return { ...state, isConnected: action.payload };
+    default:
+      return state;
+  }
+};
 
 const ConnectedContext = createContext();
 
 // Création du fournisseur de contexte
 export const ConnectedProvider = ({ children }) => {
-  const [state, setState] = useState(true);
+  const [state, dispatchConnection] = useReducer(
+    ConnectedReducer,
+    initialState
+  );
 
   const updateConnection = (bool) => {
-    setState(bool);
+    dispatchConnection({
+      type: "SET_CONNECTED",
+      payload: bool,
+    });
   };
+
   const checkConnection = async () => {
     const isConnected = await fetch("/api/isConnected");
     if (isConnected.ok) {
-      setState(true);
+      updateConnection(true);
     } else {
-      setState(false);
+      updateConnection(false);
     }
   };
-
   useEffect(() => {
     checkConnection(); // Vérifie la connexion lors de l'initialisation
+    //eslint-disable-next-line
   }, []);
 
   return (
@@ -43,4 +120,4 @@ export const useConnected = () => {
   return context;
 };
 
-export default useConnected;
+export default ConnectedContext;

@@ -14,6 +14,7 @@ import { deleteElectrovalve, getElectrovalve } from "@utils/data-fetcher";
 import CustomButton from "@components/dashboard/utils/CustomButton";
 import AddElectrovalveForm from "@components/dashboard/Forms/AddElectroValveForm";
 import { useConnected } from "@context/ConnectedContext";
+import { NULL } from "sass";
 
 export default function Settings({ electrovalves, setElectrovalves }) {
   const [selectedElectrovalve, setSelectedElectrovalve] = useState(null);
@@ -23,14 +24,12 @@ export default function Settings({ electrovalves, setElectrovalves }) {
   const { updateConnection } = useConnected();
 
   useEffect(() => {
+    if (updateKey === 0) return;
     async function fetchData() {
       try {
         const data = await getElectrovalve();
-        const transformedData = data["hydra:member"].map((electrovalve) => ({
-          ...electrovalve,
-          id: electrovalve["@id"].split("/").pop(),
-        }));
-        setElectrovalves(transformedData);
+
+        setElectrovalves(data);
       } catch (error) {
         if (error === 401) updateConnection(false);
       }
@@ -45,7 +44,7 @@ export default function Settings({ electrovalves, setElectrovalves }) {
     setSelectedElectrovalve({
       name: electrovalveName,
       settings: valveSettings,
-      id: valveSettings["@id"].split("/").pop(),
+      id: valveSettings.id,
     });
     setModalAction("settingsSlider");
   };
@@ -83,7 +82,7 @@ export default function Settings({ electrovalves, setElectrovalves }) {
   return (
     <div className={styles.container}>
       <h2>Panneau de contrôle</h2>
-      { electrovalves.length === 0 ? (
+      {electrovalves.length === 0 ? (
         <p>Aucune électrovanne enregistrée en base de données.</p>
       ) : (
         electrovalves.map((electrovalve) => (
