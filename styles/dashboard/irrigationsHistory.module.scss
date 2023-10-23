@@ -1,0 +1,58 @@
+.electrovalveSection {
+  margin-bottom: 15px;
+  padding: 15px 0;
+}
+
+.electrovalveTitle {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.irrigationTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 2px solid #90C200;
+  background-color: rgba(238, 1240, 245, 1);
+  th, td {
+    font-size: 0.7rem; // Réduisez la taille de la police comme vous le souhaitez
+  }
+}
+
+.irrigationTable th,
+.irrigationTable td {
+  border: 1px solid #90C200;
+  padding: 8px;
+  text-align: left;
+  color: rgb(100, 110, 130);
+}
+
+.irrigationTable th {
+  background-color: #90C200;
+  color: white;
+}
+
+.fullScreenModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(238, 240, 245);
+  z-index: 9999;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 100px 20px;
+}
+
+.closeButton {
+  margin-bottom: 20px;
+}
+
+.specialColor {
+  color: rgb(100, 110, 130);
+}
+
+
