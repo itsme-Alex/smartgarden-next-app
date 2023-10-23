@@ -3,6 +3,7 @@ const API_ENDPOINTS = {
   electrovalves: "/api/proxy/electrovalves",
   valveSettings: "/api/proxy/valve_settings",
   schedules: "/api/proxy/schedules",
+  irrigations: "/api/proxy/irrigations",
   // Ajoutez d'autres entités au besoin
 };
 
@@ -148,3 +149,19 @@ export const updateData = async (endPoint, id, data) => {
     throw error;
   }
 };
+
+export const getIrrigations = async () => {
+    const API_URL = API_ENDPOINTS.irrigations;
+    try {
+        const apiRes = await fetch(API_URL, {
+        method: "GET",
+        });
+
+        if (!apiRes.ok) {
+        throw new Error(`${apiRes.status}`);
+        }
+        return await apiRes.json();
+    } catch (err) {
+        throw err; // Propagez l'erreur pour pouvoir la gérer dans le composant.
+    }
+}

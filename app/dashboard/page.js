@@ -9,6 +9,8 @@ import Sidebar from "@components/dashboard/Sidebar";
 import { useConnected } from "@context/ConnectedContext";
 import { useRouter } from "next/navigation";
 import Schedules from "@components/dashboard/Schedules";
+import IrrigationsHistory from "@components/dashboard/IrrigationsHistory";
+import Stats from "@components/dashboard/Stats";
 import { getElectrovalve } from "@utils/data-fetcher";
 
 export default function Dashboard() {
@@ -73,20 +75,12 @@ export default function Dashboard() {
         </div>
         <div className={styles.mainContainer}>
           {electrovalves && (
-            <Settings
-              electrovalves={electrovalves}
-              setElectrovalves={setElectrovalves}
-            />
+            <IrrigationsHistory electrovalves={electrovalves} />
           )}
         </div>
-        {/* <div className={styles.mainContainer}>
-          {electrovalves && (
-            <Settings
-              electrovalves={electrovalves}
-              setElectrovalves={setElectrovalves}
-            />
-          )}
-        </div> */}
+        <div className={styles.mainContainer}>
+          {electrovalves && <Stats electrovalves={electrovalves} />}
+        </div>
       </div>
     </div>
   );
